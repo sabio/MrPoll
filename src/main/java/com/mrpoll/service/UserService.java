@@ -1,0 +1,27 @@
+package com.mrpoll.service;
+
+import java.util.List;
+
+import com.mrpoll.model.User;
+import com.mrpoll.model.User2;
+import com.mrpoll.model.UserRole;
+
+
+public interface UserService {
+	
+	User findById(int id);
+	
+	User findBySSO(String sso);
+	
+	void saveUser(User user);
+	
+	void updateUser(User user);
+	
+	void deleteUserBySSO(String sso);
+
+	List<User> findAllUsers(); 
+	
+	boolean isUserSSOUnique(Integer id, String sso);
+        
+
+}
