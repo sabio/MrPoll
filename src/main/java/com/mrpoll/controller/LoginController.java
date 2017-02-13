@@ -32,9 +32,9 @@ import com.mrpoll.service.UserService;
 
 
 @Controller
-@RequestMapping("/")
+//@RequestMapping("/")
 @SessionAttributes("roles")
-public class AppController {
+public class LoginController {
 
 	@Autowired
 	UserService userService;
@@ -51,11 +51,26 @@ public class AppController {
 	@Autowired
 	AuthenticationTrustResolver authenticationTrustResolver;
 	
+        private final String viewsdir = "login/";
+        
+        
+        /**
+	 * This method handles login GET requests.
+	 * If users is already logged-in and tries to goto login page again, will be redirected to list page.
+	 */
+	@RequestMapping(value = {"/login"}, method = RequestMethod.GET)
+	public String loginPage() {
+		if (isCurrentAuthenticationAnonymous()) {
+			return viewsdir+"login";
+	    } else {
+	    	return "redirect:/list";  
+	    }
+	}
 	
 	/**
 	 * This method will list all existing users.
 	 */
-	@RequestMapping(value = { "/", "/list" }, method = RequestMethod.GET)
+	@RequestMapping(value = {  "/list" }, method = RequestMethod.GET)
 	public String listUsers(ModelMap model) {
 
 		List<User> users = userService.findAllUsers();
@@ -178,18 +193,7 @@ public class AppController {
 		return "accessDenied";
 	}
 
-	/**
-	 * This method handles login GET requests.
-	 * If users is already logged-in and tries to goto login page again, will be redirected to list page.
-	 */
-	@RequestMapping(value = "/login", method = RequestMethod.GET)
-	public String loginPage() {
-		if (isCurrentAuthenticationAnonymous()) {
-			return "login";
-	    } else {
-	    	return "redirect:/list";  
-	    }
-	}
+	
 
 	/**
 	 * This method handles logout requests.

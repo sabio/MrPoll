@@ -6,10 +6,15 @@
 package com.mrpoll.model;
 
 import java.io.Serializable;
+import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -44,6 +49,13 @@ public class User2 implements Serializable {
     @Basic(optional = false)
     @Column(name = "enabled")
     private boolean enabled;
+
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "user_role",
+        joinColumns = {@JoinColumn(name = "user_id")},
+        inverseJoinColumns = {@JoinColumn(name = "role_id")}
+    )
+    private List<Role> roles;
 
     public User2() {
     }
@@ -91,6 +103,14 @@ public class User2 implements Serializable {
         this.enabled = enabled;
     }
 
+    public List<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(List<Role> roles) {
+        this.roles = roles;
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -115,5 +135,5 @@ public class User2 implements Serializable {
     public String toString() {
         return "com.mrpoll.db.entity.User[ id=" + id + " ]";
     }
-    
+
 }

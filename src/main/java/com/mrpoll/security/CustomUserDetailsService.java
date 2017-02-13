@@ -1,5 +1,6 @@
 package com.mrpoll.security;
 
+import com.mrpoll.model.Role;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,7 +18,6 @@ import org.springframework.transaction.annotation.Transactional;
 import com.mrpoll.model.User;
 import com.mrpoll.model.User2;
 import com.mrpoll.model.UserProfile;
-import com.mrpoll.model.UserRole;
 import com.mrpoll.service.User2Service;
 import com.mrpoll.service.UserService;
 
@@ -46,12 +46,11 @@ public class CustomUserDetailsService implements UserDetailsService {
 
     private List<GrantedAuthority> getGrantedAuthorities(User2 user) {
         List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
-
-        List<UserRole> roles = user2Service.findRolesByUser(user);
-
-        for (UserRole userRole : roles) {
-            authorities.add(new SimpleGrantedAuthority(user2Service.findRoleById(userRole.getUserRolePK().getRoleId()).getRole()));
+        
+        for(Role r : user.getRoles()){
+            authorities.add(new SimpleGrantedAuthority(r.getRole()));
         }
+        
         return authorities;
     }
 

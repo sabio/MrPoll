@@ -4,7 +4,6 @@ import java.util.List;
 
 import com.mrpoll.model.User;
 import com.mrpoll.model.User2;
-import com.mrpoll.model.UserRole;
 
 
 public interface UserService {

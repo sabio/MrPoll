@@ -7,7 +7,6 @@ package com.mrpoll.dao;
 
 import com.mrpoll.model.Role;
 import com.mrpoll.model.User2;
-import com.mrpoll.model.UserRole;
 import java.util.List;
 
 /**
@@ -19,5 +18,4 @@ public interface User2Dao {
     
     Role findRoleById(int roleId);
     
-    List<UserRole> findRolesByUser(User2 user);
 }

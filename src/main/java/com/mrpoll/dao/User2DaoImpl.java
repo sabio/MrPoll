@@ -3,7 +3,6 @@ package com.mrpoll.dao;
 import com.mrpoll.model.Role;
 import com.mrpoll.model.User;
 import com.mrpoll.model.User2;
-import com.mrpoll.model.UserRole;
 import java.util.List;
 import org.hibernate.Criteria;
 import org.hibernate.Hibernate;
@@ -28,14 +27,6 @@ public class User2DaoImpl extends AbstractDao<Integer, User2> implements User2Da
         return user;
     }
 
-    @Override
-    public List<UserRole> findRolesByUser(User2 user) {
-        Criteria criteria = getSession().createCriteria(UserRole.class);
-        criteria.add(Restrictions.eq("userRolePK.userId", user.getId()));
-        List<UserRole> userRoles = (List<UserRole>) criteria.list();
-
-        return userRoles;
-    }
 
     @Override
     public Role findRoleById(int roleId) {

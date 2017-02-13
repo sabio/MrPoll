@@ -7,7 +7,6 @@ package com.mrpoll.service;
 
 import com.mrpoll.model.Role;
 import com.mrpoll.model.User2;
-import com.mrpoll.model.UserRole;
 import java.util.List;
 
 /**
@@ -16,8 +15,6 @@ import java.util.List;
  */
 public interface User2Service {
     public User2 findByUsername(String username);
-    
-    List<UserRole> findRolesByUser(User2 user);
     
     Role findRoleById(int roleId);
 }
