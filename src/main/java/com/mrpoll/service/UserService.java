@@ -1,26 +1,20 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package com.mrpoll.service;
 
+import com.mrpoll.model.Role;
+import com.mrpoll.model.User;
 import java.util.List;
 
-import com.mrpoll.model.User;
-import com.mrpoll.model.User2;
-
-
+/**
+ *
+ * @author armando
+ */
 public interface UserService {
-	
-	User findById(int id);
-	
-	User findBySSO(String sso);
-	
-	void saveUser(User user);
-	
-	void updateUser(User user);
-	
-	void deleteUserBySSO(String sso);
-
-	List<User> findAllUsers(); 
-	
-	boolean isUserSSOUnique(Integer id, String sso);
-        
-
+    public User findByUsername(String username);
+    
+    Role findRoleById(int roleId);
 }

@@ -1,154 +1,141 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package com.mrpoll.model;
 
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
-
+import java.util.List;
+import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
-@Table(name="APP_USER")
-public class User implements Serializable{
+@Table(name = "user")
+public class User implements Serializable {
+    private static final long serialVersionUID = 1L;
+    @Id
+    @Basic(optional = false)
+    @Column(name = "id")
+    private Integer id;
+    @Basic(optional = false)
+    @Column(name = "username")
+    private String username;
+    @Basic(optional = false)
+    @Column(name = "password")
+    private String password;
+    @Basic(optional = false)
+    @Column(name = "enabled")
+    private boolean enabled;
 
-	@Id @GeneratedValue(strategy=GenerationType.IDENTITY)
-	private Integer id;
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "user_role",
+        joinColumns = {@JoinColumn(name = "user_id")},
+        inverseJoinColumns = {@JoinColumn(name = "role_id")}
+    )
+    private List<Role> roles;
+    
+    /*
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "userId")
+    private List<Poll> polls;
+    */
 
-	@NotEmpty
-	@Column(name="SSO_ID", unique=true, nullable=false)
-	private String ssoId;
-	
-	@NotEmpty
-	@Column(name="PASSWORD", nullable=false)
-	private String password;
-		
-	@NotEmpty
-	@Column(name="FIRST_NAME", nullable=false)
-	private String firstName;
+    public User() {
+    }
 
-	@NotEmpty
-	@Column(name="LAST_NAME", nullable=false)
-	private String lastName;
+    public User(Integer id) {
+        this.id = id;
+    }
 
-	@NotEmpty
-	@Column(name="EMAIL", nullable=false)
-	private String email;
+    public User(Integer id, String username, String password, boolean enabled) {
+        this.id = id;
+        this.username = username;
+        this.password = password;
+        this.enabled = enabled;
+    }
 
-	@NotEmpty
-	@ManyToMany(fetch = FetchType.LAZY)
-	@JoinTable(name = "APP_USER_USER_PROFILE", 
-             joinColumns = { @JoinColumn(name = "USER_ID") }, 
-             inverseJoinColumns = { @JoinColumn(name = "USER_PROFILE_ID") })
-	private Set<UserProfile> userProfiles = new HashSet<UserProfile>();
+    public Integer getId() {
+        return id;
+    }
 
-	public Integer getId() {
-		return id;
-	}
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
-	public void setId(Integer id) {
-		this.id = id;
-	}
+    public String getUsername() {
+        return username;
+    }
 
-	public String getSsoId() {
-		return ssoId;
-	}
+    public void setUsername(String username) {
+        this.username = username;
+    }
 
-	public void setSsoId(String ssoId) {
-		this.ssoId = ssoId;
-	}
+    public String getPassword() {
+        return password;
+    }
 
-	public String getPassword() {
-		return password;
-	}
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
-	public void setPassword(String password) {
-		this.password = password;
-	}
+    public boolean getEnabled() {
+        return enabled;
+    }
 
-	public String getFirstName() {
-		return firstName;
-	}
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
+    }
 
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
-	}
+    public List<Role> getRoles() {
+        return roles;
+    }
 
-	public String getLastName() {
-		return lastName;
-	}
+    public void setRoles(List<Role> roles) {
+        this.roles = roles;
+    }
 
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
-	}
+    @Override
+    public int hashCode() {
+        int hash = 0;
+        hash += (id != null ? id.hashCode() : 0);
+        return hash;
+    }
 
-	public String getEmail() {
-		return email;
-	}
+    @Override
+    public boolean equals(Object object) {
+        // TODO: Warning - this method won't work in the case the id fields are not set
+        if (!(object instanceof User)) {
+            return false;
+        }
+        User other = (User) object;
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+            return false;
+        }
+        return true;
+    }
 
-	public void setEmail(String email) {
-		this.email = email;
-	}
+    @Override
+    public String toString() {
+        return "com.mrpoll.db.entity.User[ id=" + id + " ]";
+    }
+    /*
+    public List<Poll> getPolls() {
+        return polls;
+    }
 
-	public Set<UserProfile> getUserProfiles() {
-		return userProfiles;
-	}
+    public void setPolls(List<Poll> polls) {
+        this.polls = polls;
+    }
+    */
+    
 
-	public void setUserProfiles(Set<UserProfile> userProfiles) {
-		this.userProfiles = userProfiles;
-	}
-
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		result = prime * result + ((ssoId == null) ? 0 : ssoId.hashCode());
-		return result;
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (!(obj instanceof User))
-			return false;
-		User other = (User) obj;
-		if (id == null) {
-			if (other.id != null)
-				return false;
-		} else if (!id.equals(other.id))
-			return false;
-		if (ssoId == null) {
-			if (other.ssoId != null)
-				return false;
-		} else if (!ssoId.equals(other.ssoId))
-			return false;
-		return true;
-	}
-
-	/*
-	 * DO-NOT-INCLUDE passwords in toString function.
-	 * It is done here just for convenience purpose.
-	 */
-	@Override
-	public String toString() {
-		return "User [id=" + id + ", ssoId=" + ssoId + ", password=" + password
-				+ ", firstName=" + firstName + ", lastName=" + lastName
-				+ ", email=" + email + "]";
-	}
-
-
-	
 }

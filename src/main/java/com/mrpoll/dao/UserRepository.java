@@ -1,12 +1,12 @@
 package com.mrpoll.dao;
 
-import com.mrpoll.model.User2;
+import com.mrpoll.model.User;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 
 @Repository
-public interface UserRepository extends CrudRepository<User2, Integer> {
-    public User2 findByUsername(String username);
+public interface UserRepository extends CrudRepository<User, Integer> {
+    public User findByUsername(String username);
 
 }

@@ -12,7 +12,7 @@ select * from role;
 insert into user
 (id, username, password, enabled)
 values
-(1,'armando','12345', true);
+(1,'armando','$2a$10$4eqIF5s/ewJwHK1p8lqlFOEm2QIA0S8g6./Lok.pQxqcxaBZYChRm', true);
 
 insert into role
 (id, role)

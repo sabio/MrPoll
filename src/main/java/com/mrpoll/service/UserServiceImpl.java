@@ -1,72 +1,46 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package com.mrpoll.service;
 
-import com.mrpoll.dao.User2Dao;
+import com.mrpoll.dao.UserRepository;
+import com.mrpoll.model.Role;
+import com.mrpoll.model.User;
 import java.util.List;
-
+import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import com.mrpoll.dao.UserDao;
-import com.mrpoll.model.User;
+
 
 @Service("userService")
 @Transactional
-public class UserServiceImpl implements UserService {
-
+public class UserServiceImpl implements UserService{
+    
     @Autowired
     private UserDao dao;
     
-
-    @Autowired
-    private PasswordEncoder passwordEncoder;
-
-    public User findById(int id) {
-        return dao.findById(id);
-    }
-
-    public User findBySSO(String sso) {
-        User user = dao.findBySSO(sso);
+    @Autowired 
+    private UserRepository userRepository;
+    
+    @Override
+    public User findByUsername(String username) {
+        User user = dao.findByUsername(username);
+        User user2 = userRepository.findByUsername(username);
+        
+        if(user!=null){
+            Hibernate.initialize(user.getRoles());
+        }
+        
         return user;
     }
 
-    public void saveUser(User user) {
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
-        dao.save(user);
+
+    @Override
+    public Role findRoleById(int roleId) {
+        return dao.findRoleById(roleId);
     }
-
-    /*
-	 * Since the method is running with Transaction, No need to call hibernate update explicitly.
-	 * Just fetch the entity from db and update it with proper values within transaction.
-	 * It will be updated in db once transaction ends. 
-     */
-    public void updateUser(User user) {
-        User entity = dao.findById(user.getId());
-        if (entity != null) {
-            entity.setSsoId(user.getSsoId());
-            if (!user.getPassword().equals(entity.getPassword())) {
-                entity.setPassword(passwordEncoder.encode(user.getPassword()));
-            }
-            entity.setFirstName(user.getFirstName());
-            entity.setLastName(user.getLastName());
-            entity.setEmail(user.getEmail());
-            entity.setUserProfiles(user.getUserProfiles());
-        }
-    }
-
-    public void deleteUserBySSO(String sso) {
-        dao.deleteBySSO(sso);
-    }
-
-    public List<User> findAllUsers() {
-        return dao.findAllUsers();
-    }
-
-    public boolean isUserSSOUnique(Integer id, String sso) {
-        User user = findBySSO(sso);
-        return (user == null || ((id != null) && (user.getId() == id)));
-    }
-
-
 }

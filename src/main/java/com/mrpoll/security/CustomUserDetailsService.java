@@ -15,10 +15,8 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+
 import com.mrpoll.model.User;
-import com.mrpoll.model.User2;
-import com.mrpoll.model.UserProfile;
-import com.mrpoll.service.User2Service;
 import com.mrpoll.service.UserService;
 
 @Service("customUserDetailsService")
@@ -29,12 +27,9 @@ public class CustomUserDetailsService implements UserDetailsService {
     @Autowired
     private UserService userService;
 
-    @Autowired
-    private User2Service user2Service;
-
     public UserDetails loadUserByUsername(String username)
             throws UsernameNotFoundException {
-        User2 user = user2Service.findByUsername(username);
+        User user = userService.findByUsername(username);
         logger.info("User : {}", user);
         if (user == null) {
             logger.info("User not found");
@@ -44,7 +39,7 @@ public class CustomUserDetailsService implements UserDetailsService {
                 true, true, true, true, getGrantedAuthorities(user));
     }
 
-    private List<GrantedAuthority> getGrantedAuthorities(User2 user) {
+    private List<GrantedAuthority> getGrantedAuthorities(User user) {
         List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
         
         for(Role r : user.getRoles()){
@@ -53,31 +48,4 @@ public class CustomUserDetailsService implements UserDetailsService {
         
         return authorities;
     }
-
-    /*@Transactional(readOnly=true)
-	public UserDetails loadUserByUsername(String username)
-			throws UsernameNotFoundException {
-		User user = userService.findBySSO(username);
-		logger.info("User : {}", user);
-		if(user==null){
-			logger.info("User not found");
-			throw new UsernameNotFoundException("Username not found");
-		}
-			return new org.springframework.security.core.userdetails.User(user.getSsoId(), user.getPassword(), 
-				 true, true, true, true, getGrantedAuthorities(user));
-	}
-        
-
-	
-	private List<GrantedAuthority> getGrantedAuthorities(User user){
-		List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
-		
-		for(UserProfile userProfile : user.getUserProfiles()){
-			logger.info("UserProfile : {}", userProfile);
-			authorities.add(new SimpleGrantedAuthority("ROLE_"+userProfile.getType()));
-		}
-		logger.info("authorities : {}", authorities);
-		return authorities;
-	}
-     */
 }
