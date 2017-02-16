@@ -5,5 +5,5 @@ import org.springframework.data.domain.Page;
 
 public interface PollService {
     
-    Page<Poll> getPollList(Integer pageNumber);
+    Page<Poll> getPagePollList(Integer pageNumber, Integer pageSize);
 }

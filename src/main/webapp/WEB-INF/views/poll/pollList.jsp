@@ -10,10 +10,25 @@
     <body>
         
         <div id="mainContainer">
+            <table class="table table-bordered table-striped">
+                <thead>
+                    <tr>
+                        <td>Name</td>
+                        <td># of Questions</td>
+                        <td>Status</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <c:forEach items="${list}" var="obj" >
+                        <tr>
+                            <td>${obj.name}</td>
+                            <td>${obj.questions.size()}</td>
+                            <td>${obj.expirationDate}</td>
+                        </tr>
+                    </c:forEach>
+                </tbody>
+            </table>
             
-            <c:forEach items="list" var="obj" >
-                ${obj.id} - ${obj.name} <br />
-            </c:forEach>
             
         </div>
         
