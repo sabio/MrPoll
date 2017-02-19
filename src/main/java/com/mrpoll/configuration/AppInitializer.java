@@ -9,6 +9,7 @@ public class AppInitializer extends AbstractAnnotationConfigDispatcherServletIni
     //http://websystique.com/springmvc/spring-mvc-4-and-spring-security-4-integration-example/
     //https://dzone.com/articles/springmvc4-spring-data-jpa
     //http://www.programming-free.com/2016/01/spring-security-spring-data-jpa.html
+    //http://springinpractice.com/2012/05/11/pagination-and-sorting-with-spring-data-jpa
 
     @Override
     protected Class<?>[] getRootConfigClasses() {
