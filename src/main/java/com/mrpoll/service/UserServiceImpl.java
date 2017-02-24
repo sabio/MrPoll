@@ -14,6 +14,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import com.mrpoll.dao.UserDao;
+import com.mrpoll.utils.Constants;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 
 
 @Service("userService")
@@ -37,10 +40,15 @@ public class UserServiceImpl implements UserService{
         
         return user;
     }
-
+    
 
     @Override
     public Role findRoleById(int roleId) {
         return dao.findRoleById(roleId);
+    }
+
+    @Override
+    public Page<User> getUserListPage(Integer pageNumber, Integer pageSize) {
+        return userRepository.findAll(new PageRequest(pageNumber, pageSize));
     }
 }

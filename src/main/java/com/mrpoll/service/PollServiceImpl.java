@@ -17,9 +17,9 @@ public class PollServiceImpl implements PollService{
     private PollRepository pollRepository;
     
     @Override
-    public Page<Poll> getPagePollList(Integer pageNumber, Integer pageSize){
-        pageNumber = pageNumber == null ? Constants.DEFAULT_PAGE_NUMBER : pageNumber;
-        pageSize = pageSize == null ? Constants.DEFAULT_PAGE_SIZE : pageSize;
+    public Page<Poll> getPollListPage(Integer pageNumber, Integer pageSize){
+//        pageNumber = pageNumber == null ? Constants.DEFAULT_PAGE_NUMBER : pageNumber;
+//        pageSize = pageSize == null ? Constants.DEFAULT_PAGE_SIZE : pageSize;
         
         return pollRepository.findAll(new PageRequest(pageNumber, pageSize));
     }
