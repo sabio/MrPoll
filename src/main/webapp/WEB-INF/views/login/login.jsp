@@ -17,7 +17,7 @@
                     <form action="${loginUrl}" method="post" class="form-horizontal">
                         <c:if test="${param.error != null}">
                             <div class="alert alert-danger">
-                                <p><spring:message code="validation.invalidusernamepassword" /></p>
+                                <p><spring:message code="login.invalidusernamepassword" /></p>
                             </div>
                         </c:if>
                         <c:if test="${param.logout != null}">

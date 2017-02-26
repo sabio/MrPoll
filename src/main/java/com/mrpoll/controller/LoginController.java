@@ -65,13 +65,13 @@ public class LoginController {
      */
     @RequestMapping(value="/logout", method = RequestMethod.GET)
     public String logoutPage (HttpServletRequest request, HttpServletResponse response){
-            Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-            if (auth != null){    
-                    //new SecurityContextLogoutHandler().logout(request, response, auth);
-                    persistentTokenBasedRememberMeServices.logout(request, response, auth);
-                    SecurityContextHolder.getContext().setAuthentication(null);
-            }
-            return "redirect:/login?logout";
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        if (auth != null){    
+            //new SecurityContextLogoutHandler().logout(request, response, auth);
+            persistentTokenBasedRememberMeServices.logout(request, response, auth);
+            SecurityContextHolder.getContext().setAuthentication(null);
+        }
+        return "redirect:/login?logout";
     }
 
     /**
