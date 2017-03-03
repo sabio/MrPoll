@@ -49,7 +49,7 @@
                         </c:choose>
                 </ul>
                 <span class="paginationSize">
-                    <spring:message code="poll.numentries" />: 
+                    <spring:message code="numentries" />: 
                     <select id="selectPageSize" onchange="changePaginationSize();">
                         <c:forEach var="i" begin="5" end="20" step="5">
                             <option value="${i}" <c:if test="${pageSize eq i}">selected</c:if> >${i}</option>
@@ -62,7 +62,7 @@
                     <tr>
                         <td><spring:message code="poll.pollname" /></td>
                         <td><spring:message code="poll.numofquestions" /></td>
-                        <td>Status</td>
+                        <td><spring:message code="status" /></td>
                     </tr>
                 </thead>
                 <tbody>

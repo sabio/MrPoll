@@ -26,17 +26,17 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="<c:url value='/' />">Mr. Poll</a>
+                <a class="navbar-brand" href="<c:url value='/' />"><spring:message code="mrpoll" /></a>
             </div>
             <div id="navbar" class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li><a href="<c:url value='/' />">Home</a></li>
-                    <li><a href="#about">My info</a></li>
-                    <li><a href="<c:url value='/pollList' />">My polls</a></li>
-                    <li><a href="#contact">Reports</a></li>
+                    <li><a href="<c:url value='/' />"><spring:message code="home" /></a></li>
+                    <li><a href="#about"><spring:message code="myinfo" /></a></li>
+                    <li><a href="<c:url value='/pollList' />"><spring:message code="mypolls" /></a></li>
+                    <li><a href="<c:url value='/userList' />"><spring:message code="userlist" /></a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a href="../navbar/">About</a></li>
+                    <li><a href="../navbar/"><spring:message code="about" /></a></li>
                     <li><a href="<c:url value='/logout' />"><spring:message code="logout" /></a></li>
                 </ul>
             </div>

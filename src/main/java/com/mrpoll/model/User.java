@@ -33,6 +33,9 @@ public class User implements Serializable {
     @Column(name = "password")
     private String password;
     @Basic(optional = false)
+    @Column(name = "email")
+    private String email;
+    @Basic(optional = false)
     @Column(name = "enabled")
     private boolean enabled;
 
@@ -135,6 +138,14 @@ public class User implements Serializable {
         this.polls = polls;
     }
     */
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
     
 
 }

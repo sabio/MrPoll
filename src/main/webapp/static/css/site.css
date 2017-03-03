@@ -27,8 +27,17 @@ body{
     border-radius: 4px;
     box-shadow: 0 0 50px black;
     margin: 50px auto 0 auto;
-    max-width: 90%;
+    max-width: 60%;
     padding: 10px;
+}
+
+#mainContainer h2{
+    font-weight: bold;
+    text-align: center;
+}
+
+.add-button{
+    float: right;
 }
 
 .pagination ul{
