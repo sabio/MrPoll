@@ -5,7 +5,7 @@ import com.mrpoll.validator.Username;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-@FieldMatch(first = "password", second = "confirmPassword", message = "The email fields must match")
+@FieldMatch(first = "password", second = "confirmPassword", message = "Passwords don't match")
 public class FormUser {
     
     private Integer id;

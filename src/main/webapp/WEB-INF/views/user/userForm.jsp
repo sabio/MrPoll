@@ -29,43 +29,63 @@
             </c:choose>
 
             <form:form id="form" class="form-horizontal" method="post" modelAttribute="formUser">
-                <div class="form-group ${status.error ? 'has-error' : ''}">
-                    <label class="col-sm-2 control-label"><spring:message code="email" /></label>
-                    <div class="col-sm-9">
-                        <spring:message code="email" var="emailPlaceholder"/> 
-                        <form:input path="email" class="form-control" placeholder='${emailPlaceholder}' />
-                        <form:errors path="email" class="control-label" />
-                    </div>
-                </div>
+                <!--
+                <spring:bind path="*">
+                    <c:if test="${status.error}">
+                        <div class="alert alert-danger" style="text-align: center;">
+                            <spring:message code="formHasErrors" />
+                        </div>
+                    </c:if>
+                </spring:bind>
+                -->
+                
+                
+                <form:errors path="" element="div" cssClass="alert alert-warning" cssStyle="text-align: center;"  />
 
-                <div class="form-group ${status.error ? 'has-error' : ''}">
-                    <label class="col-sm-2 control-label"><spring:message code="username" /></label>
-                    <div class="col-sm-9">
-                        <spring:message code="username" var="usernamePlaceholder"/> 
-                        <form:input path="username" class="form-control" placeholder='${usernamePlaceholder}' />
-                        <form:errors path="username" class="control-label" />
+                <spring:bind path="email">
+                    <div class="form-group ${status.error ? 'has-error' : ''}">
+                        <label class="col-sm-2 control-label"><spring:message code="email" /></label>
+                        <div class="col-sm-9">
+                            <spring:message code="email" var="emailPlaceholder"/> 
+                            <form:input path="email" class="form-control" placeholder='${emailPlaceholder}' />
+                            <form:errors path="email" class="control-label" />
+                        </div>
                     </div>
-                </div>
+                </spring:bind>
 
-                <div class="form-group ${status.error ? 'has-error' : ''}">
-                    <label class="col-sm-2 control-label"><spring:message code="password" /></label>
-                    <div class="col-sm-9">
-                        <spring:message code="password" var="passwordPlaceholder"/> 
-                        <form:input path="password" class="form-control" placeholder='${passwordPlaceholder}' />
-                        <form:errors path="password" class="control-label" />
+                <spring:bind path="username">
+                    <div class="form-group ${status.error ? 'has-error' : ''}">
+                        <label class="col-sm-2 control-label"><spring:message code="username" /></label>
+                        <div class="col-sm-9">
+                            <spring:message code="username" var="usernamePlaceholder"/> 
+                            <form:input path="username" class="form-control" placeholder='${usernamePlaceholder}' />
+                            <form:errors path="username" class="control-label" />
+                        </div>
                     </div>
-                </div>
+                </spring:bind>
 
-                <div class="form-group ${status.error ? 'has-error' : ''}">
-                    <label class="col-sm-2 control-label"><spring:message code="user.confirmPassword" /></label>
-                    <div class="col-sm-9">
-                        <spring:message code="user.confirmPassword" var="confirmPasswordPlaceholder"/> 
-                        <form:input path="confirmPassword" class="form-control" placeholder='${confirmPasswordPlaceholder}' />
-                        <form:errors path="confirmPassword" class="control-label" />
+                <spring:bind path="password">
+                    <div class="form-group ${status.error ? 'has-error' : ''}">
+                        <label class="col-sm-2 control-label"><spring:message code="password" /></label>
+                        <div class="col-sm-9">
+                            <spring:message code="password" var="passwordPlaceholder"/> 
+                            <form:password path="password" class="form-control" placeholder='${passwordPlaceholder}' />
+                            <form:errors path="password" class="control-label" />
+                        </div>
                     </div>
-                </div>
+                </spring:bind>
 
-                <div class="form-group ${status.error ? 'has-error' : ''}">
+                <spring:bind path="confirmPassword">
+                    <div class="form-group ${status.error ? 'has-error' : ''}">
+                        <label class="col-sm-2 control-label"><spring:message code="user.confirmPassword" /></label>
+                        <div class="col-sm-9">
+                            <spring:message code="user.confirmPassword" var="confirmPasswordPlaceholder"/> 
+                            <form:password path="confirmPassword" class="form-control" placeholder='${confirmPasswordPlaceholder}' />
+                        </div>
+                    </div>
+                </spring:bind>
+
+                <div class="form-group">
                     <label class="col-sm-2 control-label"><spring:message code="user.enabled" /></label>
                     <div class="col-sm-9">
                         <spring:message code="user.enabled" var="enabledPlaceholder" />

@@ -3,6 +3,7 @@ package com.mrpoll.validator;
 import com.mrpoll.controller.FormUser;
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
+import org.apache.commons.beanutils.BeanUtils;
 
 public class FieldMatchValidator implements ConstraintValidator<FieldMatch, FormUser> {
 
@@ -18,10 +19,11 @@ public class FieldMatchValidator implements ConstraintValidator<FieldMatch, Form
     @Override
     public boolean isValid(final FormUser value, final ConstraintValidatorContext context) {
         try {
-            //final Object firstObj = BeanUtils.getProperty(value, firstFieldName);
-            //final Object secondObj = BeanUtils.getProperty(value, secondFieldName);
-
-            //return firstObj == null && secondObj == null || firstObj != null && firstObj.equals(secondObj);
+            final Object firstObj = BeanUtils.getProperty(value, firstFieldName);
+            final Object secondObj = BeanUtils.getProperty(value, secondFieldName);
+            
+            
+            return firstObj == null && secondObj == null || firstObj != null && firstObj.equals(secondObj);
             
         } catch (final Exception ignore) {
             // ignore
