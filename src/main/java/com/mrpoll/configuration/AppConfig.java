@@ -1,5 +1,6 @@
 package com.mrpoll.configuration;
 
+import com.mrpoll.converter.RoleIdToRoleConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
@@ -81,6 +82,14 @@ public class AppConfig extends WebMvcConfigurerAdapter {
         LocaleChangeInterceptor interceptor = new LocaleChangeInterceptor();
         interceptor.setParamName("mylocale");
         registry.addInterceptor(interceptor);
+    }
+    
+    @Autowired
+    RoleIdToRoleConverter roleIdToRoleConverter;
+    
+    @Override
+    public void addFormatters (FormatterRegistry registry) {
+        registry.addConverter(roleIdToRoleConverter);
     }
     
     /**

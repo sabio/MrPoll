@@ -5,6 +5,8 @@
  */
 package com.mrpoll.service;
 
+import com.mrpoll.controller.FormUser;
+import com.mrpoll.dao.RoleDao;
 import com.mrpoll.dao.UserRepository;
 import com.mrpoll.model.Role;
 import com.mrpoll.model.User;
@@ -17,38 +19,99 @@ import com.mrpoll.dao.UserDao;
 import com.mrpoll.utils.Constants;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Service("userService")
 @Transactional
-public class UserServiceImpl implements UserService{
+public class UserServiceImpl implements UserService {
+
+    @Autowired
+    private UserDao userDao;
     
     @Autowired
-    private UserDao dao;
-    
-    @Autowired 
+    private RoleDao roleDao;
+
+    @Autowired
     private UserRepository userRepository;
     
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
     @Override
     public User findByUsername(String username) {
-        User user = dao.findByUsername(username);
+        User user = userDao.findByUsername(username);
         User user2 = userRepository.findByUsername(username);
-        
-        if(user!=null){
+
+        if (user != null) {
             Hibernate.initialize(user.getRoles());
         }
-        
+
         return user;
     }
     
+    @Override
+    public FormUser findById(Integer id) {
+        return createFormuUser(userDao.findById(id));
+    }
+
 
     @Override
     public Role findRoleById(int roleId) {
-        return dao.findRoleById(roleId);
+        return roleDao.findById(roleId);
+    }
+    
+    @Override
+    public List<Role> getRoles() {
+        return roleDao.getRoles();
     }
 
     @Override
     public Page<User> getUserListPage(Integer pageNumber, Integer pageSize) {
         return userRepository.findAll(new PageRequest(pageNumber, pageSize));
     }
+
+    private User createModelBean(FormUser formUser) {
+        User model = new User();
+        model.setId(formUser.getId());
+        model.setEmail(formUser.getEmail());
+        model.setUsername(formUser.getUsername());
+        if(formUser.isNew() || userDao.passwordHasChanged(formUser.getId(), passwordEncoder.encode(formUser.getPassword()))){
+            model.setPassword(passwordEncoder.encode(formUser.getPassword()));
+        }
+        else{
+            model.setPassword(formUser.getPassword());
+        }
+        model.setEnabled(formUser.getEnabled());
+        model.setRoles(formUser.getRoles());
+        
+        return model;
+    }
+    
+    private FormUser createFormuUser(User user){
+        FormUser formUser = new FormUser();
+        formUser.setId(user.getId());
+        formUser.setEmail(user.getEmail());
+        formUser.setUsername(user.getUsername());
+        formUser.setPassword(user.getPassword());
+        formUser.setConfirmPassword(user.getPassword());
+        formUser.setEnabled(user.getEnabled());
+        formUser.setRoles(user.getRoles());
+        
+        return formUser;
+    }
+
+    @Override
+    public void saveUser(FormUser formUser) {
+        User user = createModelBean(formUser);
+        userDao.save(user);
+    }
+
+    @Override
+    public void updateUser(FormUser formUser) {
+        User user = createModelBean(formUser);
+        userDao.update(user);
+    }
+
+    
+ 
 }

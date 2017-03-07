@@ -19,6 +19,11 @@ insert into role
 values
 (1, 'ROLE_ADMIN');
 
+insert into role
+(id, role)
+values
+(2, 'ROLE_POLLMAKER');
+
 insert into user_role
 (user_id, role_id)
 values

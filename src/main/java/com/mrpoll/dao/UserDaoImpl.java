@@ -13,28 +13,40 @@ import org.springframework.stereotype.Repository;
 public class UserDaoImpl extends AbstractDao<Integer, User> implements UserDao {
 
     @Override
+    public User findById(Integer id) {
+        User user = getByKey(id);
+        if (user != null) {
+            Hibernate.initialize(user.getRoles());
+        }
+
+        return user;
+    }
+
+    @Override
     public User findByUsername(String username) {
         Criteria crit = createEntityCriteria();
         crit.add(Restrictions.eq("username", username));
         User user = (User) crit.uniqueResult();
-        
+
         /*
         if (user != null) {
             Hibernate.initialize(user.getUserProfiles());
         }
-        */
+         */
         return user;
     }
 
-
     @Override
-    public Role findRoleById(int roleId) {
-        Criteria criteria = getSession().createCriteria(Role.class);
-        criteria.add(Restrictions.eq("id", roleId));
-        
-        Role role = (Role)criteria.uniqueResult();
-        
-        return role;
+    public void save(User user) {
+        persist(user);
     }
 
+    @Override
+    public boolean passwordHasChanged(Integer userId, String newPassword) {
+        Criteria crit = createEntityCriteria();
+        crit.add(Restrictions.eq("id", userId))
+            .add(Restrictions.eq("password", newPassword));
+
+        return crit.list().isEmpty();
+    }
 }

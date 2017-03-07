@@ -13,30 +13,40 @@
             <c:url var="lastUrl" value="/userList?pageNumber=${totalPages}&pageSize=${pageSize}" />
             <c:url var="prevUrl" value="/userList?pageNumber=${currentIndex - 1}&pageSize=${pageSize}" />
             <c:url var="nextUrl" value="/userList?pageNumber=${currentIndex + 1}&pageSize=${pageSize}" />
-            
-            
-            <button type="button" id="addButton" class="add-button btn btn-primary" ><spring:message code="user.addnewuser" /></button>
-            
+
+
+            <c:if test="${not empty msg}">
+                <div class="alert alert-${css} alert-dismissible" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <strong>${msg}</strong>
+                </div>
+            </c:if>
+
+            <button type="button" id="addButton" class="add-button btn btn-primary btn-action-width" ><spring:message code="user.addnewuser" /></button>
+
             <div class="pagination">
                 <ul>
                     <c:choose>
                         <c:when test="${currentIndex == 1}">
                             <li class="disabled"><a href="#">&lt;&lt;</a></li>
                             <li class="disabled"><a href="#">&lt;</a></li>
-                            </c:when>
-                            <c:otherwise>
+                        </c:when>
+                        <c:otherwise>
                             <li><a href="${firstUrl}">&lt;&lt;</a></li>
                             <li><a href="${prevUrl}">&lt;</a></li>
                             </c:otherwise>
                         </c:choose>
+                            
                         <c:forEach var="i" begin="${beginIndex}" end="${endIndex}">
                             <c:url var="pageUrl" value="/userList?pageNumber=${i}&pageSize=${pageSize}" />
                             <c:choose>
                                 <c:when test="${i == currentIndex}">
-                                <li class="active"><a href="${pageUrl}"><c:out value="${i}" /></a></li>
+                                    <li class="active"><a href="${pageUrl}"><c:out value="${i}" /></a></li>
                                 </c:when>
                                 <c:otherwise>
-                                <li><a href="${pageUrl}"><c:out value="${i}" /></a></li>
+                                    <li><a href="${pageUrl}"><c:out value="${i}" /></a></li>
                                 </c:otherwise>
                             </c:choose>
                         </c:forEach>
@@ -65,6 +75,7 @@
                     <tr>
                         <td><spring:message code="username" /></td>
                         <td><spring:message code="status" /></td>
+                        <td></td>
                     </tr>
                 </thead>
                 <tbody>
@@ -79,6 +90,10 @@
                                 <tr>
                                     <td>${obj.username}</td>
                                     <td>${obj.enabled}</td>
+                                    <td>
+                                        <a href="<c:url value='/editUser/${obj.id}' />" class="btn btn-success btn-action-width"><spring:message code="edit" /></a>
+                                        <a href="<c:url value='/deleteUser/${obj.id}' />" class="btn btn-danger btn-action-width"><spring:message code="delete" /></a>
+                                    </td>
                                 </tr>
                             </c:forEach>
                         </c:otherwise>
@@ -87,15 +102,15 @@
             </table>
         </div>
         <script type="text/javascript">
-            $("#selectPageSize").change(function(){
+            $("#selectPageSize").change(function () {
                 var pageSize = $(this).val();
                 document.location.href = "<c:url value='/userList'  />?pageSize=" + pageSize;
             });
-            
-            $("#addButton").click(function(){
+
+            $("#addButton").click(function () {
                 document.location.href = "<c:url value='/addUser'  />";
             });
-            
+
         </script>
     </body>
 </html>

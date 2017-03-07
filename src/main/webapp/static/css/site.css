@@ -69,3 +69,7 @@ body{
 .pagination .paginationSize{
     
 }
+
+.btn-action-width{
+    min-width: 100px;
+}

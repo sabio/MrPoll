@@ -1,7 +1,9 @@
 package com.mrpoll.controller;
 
+import com.mrpoll.model.Role;
 import com.mrpoll.validator.FieldMatch;
 import com.mrpoll.validator.Username;
+import java.util.List;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -20,15 +22,22 @@ public class FormUser {
     private String email;
 
     @NotNull
-    @Size(min=2, max=45)
+    @Size(min=2, max=60)
     private String password;
 
     @NotNull
     private String confirmPassword;
     
+    private String currentPassword;
+    
     @NotNull
     private Boolean enabled;
-
+    
+    @NotNull
+    @Size(min=1)
+    private List<Role> roles;
+    
+    
     public boolean isNew() {
         return (this.id == null);
     }
@@ -81,4 +90,21 @@ public class FormUser {
         this.confirmPassword = confirmPassword;
     }
 
+    public List<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(List<Role> roles) {
+        this.roles = roles;
+    }
+
+    public String getCurrentPassword() {
+        return currentPassword;
+    }
+
+    public void setCurrentPassword(String currentPassword) {
+        this.currentPassword = currentPassword;
+    }
+    
+    
 }
