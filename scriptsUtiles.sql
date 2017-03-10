@@ -10,9 +10,9 @@
 
 select * from role;
 insert into user
-(id, username, password, email, enabled)
+(id, name, username, password, email, enabled)
 values
-(1,'armando','$2a$10$4eqIF5s/ewJwHK1p8lqlFOEm2QIA0S8g6./Lok.pQxqcxaBZYChRm', 'aaaa@aaaa.com', true);
+(1,'armando','armando','$2a$10$4eqIF5s/ewJwHK1p8lqlFOEm2QIA0S8g6./Lok.pQxqcxaBZYChRm', 'aaaa@aaaa.com', true);
 
 insert into role
 (id, role)

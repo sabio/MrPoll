@@ -74,17 +74,8 @@ public class UserController {
         return viewsdir + "userForm";
     }
     
-    @RequestMapping(value = {"/editUser/{id}"}, method = RequestMethod.GET)
-    public String editUser(@PathVariable("id") Integer id, Model model) {
-        model.addAttribute("formUser", userService.findById(id));
-        return viewsdir + "userForm";
-    }
-    
     @RequestMapping(value = {"/addUser"}, method = RequestMethod.POST)
     public String addUser(@Valid FormUser formUser, BindingResult result, Model model, final RedirectAttributes redirectAttributes, Locale locale) {
-        for(ObjectError obj : result.getAllErrors()){
-            System.out.println("++Error = "+obj.getClass());
-        }
         if (result.hasErrors()) {
             return viewsdir + "userForm";
         }
@@ -96,6 +87,12 @@ public class UserController {
         return "redirect:/userList";
     }
     
+    @RequestMapping(value = {"/editUser/{id}"}, method = RequestMethod.GET)
+    public String editUser(@PathVariable("id") Integer id, Model model) {
+        model.addAttribute("formUser", userService.findById(id));
+        return viewsdir + "userForm";
+    }
+    
     @RequestMapping(value = {"/editUser"}, method = RequestMethod.POST)
     public String editUser(@Valid FormUser formUser, BindingResult result, Model model, final RedirectAttributes redirectAttributes, Locale locale) {
         if (result.hasErrors()) {
@@ -104,6 +101,15 @@ public class UserController {
         userService.updateUser(formUser);
         redirectAttributes.addFlashAttribute("css", "success");
         redirectAttributes.addFlashAttribute("msg", messageSource.getMessage("user.updated", null, locale));
+        return "redirect:/userList";
+    }
+    
+    @RequestMapping(value = {"/deleteUser/{id}"}, method = RequestMethod.GET)
+    public String deleteUser(@PathVariable("id") Integer id, final RedirectAttributes redirectAttributes, Locale locale) {
+        
+        userService.deleteUserById(id);
+        redirectAttributes.addFlashAttribute("css", "success");
+        redirectAttributes.addFlashAttribute("msg", messageSource.getMessage("user.deleted", null, locale));
         return "redirect:/userList";
     }
 }

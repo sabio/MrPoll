@@ -42,11 +42,21 @@ public class UserDaoImpl extends AbstractDao<Integer, User> implements UserDao {
     }
 
     @Override
-    public boolean passwordHasChanged(Integer userId, String newPassword) {
-        Criteria crit = createEntityCriteria();
-        crit.add(Restrictions.eq("id", userId))
-            .add(Restrictions.eq("password", newPassword));
-
-        return crit.list().isEmpty();
+    public void deleteUserById(Integer id) {
+        User user = getByKey(id);
+        delete(user);
     }
+
+    @Override
+    public boolean passwordHasChanged(Integer id, String newPassword) {
+        User user = getByKey(id);
+        if (user == null) {
+            return false;
+        }
+        boolean result = !user.getPassword().equals(newPassword);
+        this.getSession().evict(user);
+
+        return result;
+    }
+
 }

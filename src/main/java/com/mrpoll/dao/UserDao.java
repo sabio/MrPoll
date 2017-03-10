@@ -14,5 +14,9 @@ public interface UserDao {
     
     public void update(User user);
     
-    public boolean passwordHasChanged(Integer userId, String newPassword);
+    public void delete(User user);
+    
+    public boolean passwordHasChanged(Integer id, String newPassword);
+
+    public void deleteUserById(Integer id);
 }

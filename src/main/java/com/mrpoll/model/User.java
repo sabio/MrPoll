@@ -31,6 +31,9 @@ public class User implements Serializable {
     @Column(name = "id")
     private Integer id;
     @Basic(optional = false)
+    @Column(name = "name")
+    private String name;
+    @Basic(optional = false)
     @Column(name = "username")
     private String username;
     @Basic(optional = false)
@@ -77,6 +80,14 @@ public class User implements Serializable {
         this.id = id;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+    
     public String getUsername() {
         return username;
     }

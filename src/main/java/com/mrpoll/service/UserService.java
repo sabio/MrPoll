@@ -21,5 +21,7 @@ public interface UserService {
     public FormUser findById(Integer id);
 
     public void updateUser(FormUser formUser);
+
+    public void deleteUserById(Integer id);
     
 }

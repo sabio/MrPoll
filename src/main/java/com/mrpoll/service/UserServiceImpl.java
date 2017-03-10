@@ -16,7 +16,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import com.mrpoll.dao.UserDao;
-import com.mrpoll.utils.Constants;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -74,8 +73,9 @@ public class UserServiceImpl implements UserService {
         User model = new User();
         model.setId(formUser.getId());
         model.setEmail(formUser.getEmail());
+        model.setName(formUser.getName());
         model.setUsername(formUser.getUsername());
-        if(formUser.isNew() || userDao.passwordHasChanged(formUser.getId(), passwordEncoder.encode(formUser.getPassword()))){
+        if(formUser.isNew() || userDao.passwordHasChanged(formUser.getId(), formUser.getPassword())){
             model.setPassword(passwordEncoder.encode(formUser.getPassword()));
         }
         else{
@@ -91,6 +91,7 @@ public class UserServiceImpl implements UserService {
         FormUser formUser = new FormUser();
         formUser.setId(user.getId());
         formUser.setEmail(user.getEmail());
+        formUser.setName(user.getName());
         formUser.setUsername(user.getUsername());
         formUser.setPassword(user.getPassword());
         formUser.setConfirmPassword(user.getPassword());
@@ -110,6 +111,11 @@ public class UserServiceImpl implements UserService {
     public void updateUser(FormUser formUser) {
         User user = createModelBean(formUser);
         userDao.update(user);
+    }
+
+    @Override
+    public void deleteUserById(Integer id) {
+        userDao.deleteUserById(id);
     }
 
     

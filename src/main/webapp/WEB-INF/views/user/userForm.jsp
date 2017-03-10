@@ -33,12 +33,33 @@
             <form:form id="form" class="form-horizontal" method="post" modelAttribute="formUser" action="${actionUrl}">
                 <form:hidden path="id" />
                 
+                <!--
                 <spring:bind path="*">
                     <c:if test="${status.error}">
                         <div class="alert alert-danger" style="text-align: center;">
-                        <spring:message code="formHasErrors" />
-                    </div>
+                            <spring:message code="formHasErrors" />
+                        </div>
                     </c:if>
+                </spring:bind>
+                -->
+                
+                <spring:bind path="formUser">
+                    <c:if test="${status.error}">
+                        <div class="alert alert-danger" style="text-align: center;">
+                            <form:errors path="" class="control-label" />
+                        </div>
+                    </c:if>
+                </spring:bind>
+                
+                <spring:bind path="name">
+                    <div class="form-group ${status.error ? 'has-error' : ''}">
+                        <label class="col-sm-2 control-label"><spring:message code="name" /></label>
+                        <div class="col-sm-9">
+                            <spring:message code="name" var="namePlaceholder"/> 
+                            <form:input path="name" class="form-control" placeholder='${namePlaceholder}' />
+                            <form:errors path="name" class="control-label" />
+                        </div>
+                    </div>
                 </spring:bind>
                 
                 <spring:bind path="email">
@@ -74,29 +95,13 @@
                     </div>
                 </spring:bind>
 
-                <spring:bind path="formUser">
+                <spring:bind path="confirmPassword">
                     <div class="form-group ${status.error ? 'has-error' : ''}">
                         <label class="col-sm-2 control-label"><spring:message code="user.confirmPassword" /></label>
                         <div class="col-sm-9">
                             <spring:message code="user.confirmPassword" var="confirmPasswordPlaceholder"/> 
                             <form:input type="password" path="confirmPassword" class="form-control" placeholder='${confirmPasswordPlaceholder}' />
-                            <form:errors path=""  class="control-label" />
-                            <%
-                                java.util.Enumeration<String> enumx = request.getAttributeNames();
-                                org.springframework.validation.BeanPropertyBindingResult sss = (org.springframework.validation.BeanPropertyBindingResult)request.getAttribute("org.springframework.validation.BindingResult.formUser");
-                                
-                                
-                                
-                                
-                                while(enumx.hasMoreElements()){
-                                    System.out.println("var = "+enumx.nextElement());
-                                }
-                                
-                                
-                                
-                                int a = 2;
-                            %>
-                            
+                            <form:errors path="confirmPassword"  class="control-label" />                           
                         </div>
                     </div>
                 </spring:bind>

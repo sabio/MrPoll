@@ -8,13 +8,17 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 @FieldMatch(first = "password", second = "confirmPassword", message = "Passwords don't match")
+@Username
 public class FormUser {
     
     private Integer id;
     
     @NotNull
+    @Size(min=2, max=100)
+    private String name;
+    
+    @NotNull
     @Size(min=2, max=45)
-    @Username
     private String username;
 
     @NotNull
@@ -26,9 +30,8 @@ public class FormUser {
     private String password;
 
     @NotNull
+    @Size(min=2, max=60)
     private String confirmPassword;
-    
-    private String currentPassword;
     
     @NotNull
     private Boolean enabled;
@@ -48,6 +51,14 @@ public class FormUser {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+    
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
     
     public Boolean getEnabled() {
@@ -97,14 +108,5 @@ public class FormUser {
     public void setRoles(List<Role> roles) {
         this.roles = roles;
     }
-
-    public String getCurrentPassword() {
-        return currentPassword;
-    }
-
-    public void setCurrentPassword(String currentPassword) {
-        this.currentPassword = currentPassword;
-    }
-    
     
 }
