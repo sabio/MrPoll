@@ -56,7 +56,7 @@
                         <label class="col-sm-2 control-label"><spring:message code="name" /></label>
                         <div class="col-sm-9">
                             <spring:message code="name" var="namePlaceholder"/> 
-                            <form:input path="name" class="form-control" placeholder='${namePlaceholder}' />
+                            <form:input path="name" class="form-control" placeholder='${namePlaceholder}' autocomplete="off" />
                             <form:errors path="name" class="control-label" />
                         </div>
                     </div>
@@ -67,7 +67,7 @@
                         <label class="col-sm-2 control-label"><spring:message code="email" /></label>
                         <div class="col-sm-9">
                             <spring:message code="email" var="emailPlaceholder"/> 
-                            <form:input path="email" class="form-control" placeholder='${emailPlaceholder}' />
+                            <form:input path="email" class="form-control" placeholder='${emailPlaceholder}' autocomplete="off"  />
                             <form:errors path="email" class="control-label" />
                         </div>
                     </div>
@@ -78,7 +78,7 @@
                         <label class="col-sm-2 control-label"><spring:message code="username" /></label>
                         <div class="col-sm-9">
                             <spring:message code="username" var="usernamePlaceholder"/> 
-                            <form:input path="username" class="form-control" placeholder='${usernamePlaceholder}' />
+                            <form:input path="username" class="form-control" placeholder='${usernamePlaceholder}' autocomplete="off"  />
                             <form:errors path="username" class="control-label" />
                         </div>
                     </div>
@@ -89,7 +89,7 @@
                         <label class="col-sm-2 control-label"><spring:message code="password" /></label>
                         <div class="col-sm-9">
                             <spring:message code="password" var="passwordPlaceholder"/> 
-                            <form:input type="password" path="password" class="form-control" placeholder='${passwordPlaceholder}' />
+                            <form:input type="password" path="password" class="form-control" placeholder='${passwordPlaceholder}' autocomplete="off"  />
                             <form:errors path="password" class="control-label" />
                         </div>
                     </div>
@@ -100,7 +100,7 @@
                         <label class="col-sm-2 control-label"><spring:message code="user.confirmPassword" /></label>
                         <div class="col-sm-9">
                             <spring:message code="user.confirmPassword" var="confirmPasswordPlaceholder"/> 
-                            <form:input type="password" path="confirmPassword" class="form-control" placeholder='${confirmPasswordPlaceholder}' />
+                            <form:input type="password" path="confirmPassword" class="form-control" placeholder='${confirmPasswordPlaceholder}' autocomplete="off"  />
                             <form:errors path="confirmPassword"  class="control-label" />                           
                         </div>
                     </div>

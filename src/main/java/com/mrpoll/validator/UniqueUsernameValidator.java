@@ -8,13 +8,13 @@ import javax.validation.ConstraintValidatorContext;
 import org.springframework.beans.factory.annotation.Autowired;
 
 
-public class UsernameValidator implements ConstraintValidator<Username, FormUser>{
+public class UniqueUsernameValidator implements ConstraintValidator<UniqueUsername, FormUser>{
     
     @Autowired
     private UserService userService;
     
     @Override
-    public void initialize(final Username constraintAnnotation) {
+    public void initialize(final UniqueUsername constraintAnnotation) {
         //Nothing to do here
     }
 

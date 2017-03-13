@@ -1,6 +1,7 @@
 package com.mrpoll.validator;
 
 import com.mrpoll.controller.FormUser;
+import java.lang.reflect.InvocationTargetException;
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 import org.apache.commons.beanutils.BeanUtils;
@@ -25,7 +26,7 @@ public class FieldMatchValidator implements ConstraintValidator<FieldMatch, Form
             
             return firstObj == null && secondObj == null || firstObj != null && firstObj.equals(secondObj);
             
-        } catch (final Exception ignore) {
+        } catch (IllegalAccessException | NoSuchMethodException | InvocationTargetException ex) {
             // ignore
         }
         return true;

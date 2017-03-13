@@ -8,10 +8,10 @@ import java.lang.annotation.Target;
 import javax.validation.Constraint;
 import javax.validation.Payload;
 
-@Constraint(validatedBy = UsernameValidator.class)
+@Constraint(validatedBy = UniqueUsernameValidator.class)
 @Target({TYPE, ANNOTATION_TYPE})
 @Retention(RetentionPolicy.RUNTIME)
-public @interface Username {
+public @interface UniqueUsername {
 
     String message() default "The username is already in use";
 

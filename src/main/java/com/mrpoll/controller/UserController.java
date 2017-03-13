@@ -1,6 +1,7 @@
 package com.mrpoll.controller;
 
 import com.mrpoll.model.Role;
+import com.mrpoll.service.RoleService;
 import com.mrpoll.service.UserService;
 import com.mrpoll.utils.Constants;
 import java.util.ArrayList;
@@ -17,7 +18,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -34,11 +34,16 @@ public class UserController {
     @Autowired
     private MessageSource messageSource;
     
+    /*
     @Autowired
     private LocaleResolver localeResolver;
-
+    */
+    
     @Autowired
     private UserService userService;
+    
+    @Autowired
+    private RoleService roleService;
 
     @RequestMapping(value = {"/userList"}, method = RequestMethod.GET)
     public String pollList(
@@ -65,7 +70,7 @@ public class UserController {
 
     @ModelAttribute("roles")
     public List<Role> createFormUser() {
-        return userService.getRoles();
+        return roleService.getRoles();
     }
 
     @RequestMapping(value = {"/addUser"}, method = RequestMethod.GET)
@@ -80,7 +85,7 @@ public class UserController {
             return viewsdir + "userForm";
         }
         
-        userService.saveUser(formUser);
+        userService.saveFormUser(formUser);
         redirectAttributes.addFlashAttribute("css", "success");
         //Locale locale = localeResolver.resolveLocale(request);
         redirectAttributes.addFlashAttribute("msg", messageSource.getMessage("user.added", null, locale));
@@ -89,7 +94,7 @@ public class UserController {
     
     @RequestMapping(value = {"/editUser/{id}"}, method = RequestMethod.GET)
     public String editUser(@PathVariable("id") Integer id, Model model) {
-        model.addAttribute("formUser", userService.findById(id));
+        model.addAttribute("formUser", userService.findFormUserById(id));
         return viewsdir + "userForm";
     }
     
@@ -98,7 +103,7 @@ public class UserController {
         if (result.hasErrors()) {
             return viewsdir + "userForm";
         }
-        userService.updateUser(formUser);
+        userService.updateFormUser(formUser);
         redirectAttributes.addFlashAttribute("css", "success");
         redirectAttributes.addFlashAttribute("msg", messageSource.getMessage("user.updated", null, locale));
         return "redirect:/userList";

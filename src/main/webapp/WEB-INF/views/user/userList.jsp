@@ -73,7 +73,10 @@
             <table class="table table-bordered table-striped">
                 <thead>
                     <tr>
+                        <td><spring:message code="name" /></td>
                         <td><spring:message code="username" /></td>
+                        <td><spring:message code="email" /></td>
+                        <td><spring:message code="roles" /></td>
                         <td><spring:message code="status" /></td>
                         <td></td>
                     </tr>
@@ -88,8 +91,20 @@
                         <c:otherwise>
                             <c:forEach items="${list}" var="obj" >
                                 <tr>
+                                    <td>${obj.name}</td>
                                     <td>${obj.username}</td>
-                                    <td>${obj.enabled}</td>
+                                    <td>${obj.email}</td>
+                                    <td>
+                                        <c:forEach items="${obj.roles}" var="role">
+                                            ${role.role}
+                                        </c:forEach>
+                                    </td>
+                                    <td>
+                                        <c:choose>
+                                            <c:when test="${obj.enabled}"><spring:message code="user.enabled" /></c:when>
+                                            <c:otherwise><spring:message code="user.disabled" /></c:otherwise>
+                                        </c:choose>
+                                    </td>
                                     <td>
                                         <a href="<c:url value='/editUser/${obj.id}' />" class="btn btn-success btn-action-width"><spring:message code="edit" /></a>
                                         <a href="<c:url value='/deleteUser/${obj.id}' />" class="btn btn-danger btn-action-width"><spring:message code="delete" /></a>

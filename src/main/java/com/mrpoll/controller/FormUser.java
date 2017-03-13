@@ -2,13 +2,16 @@ package com.mrpoll.controller;
 
 import com.mrpoll.model.Role;
 import com.mrpoll.validator.FieldMatch;
-import com.mrpoll.validator.Username;
+import com.mrpoll.validator.UniqueEmail;
 import java.util.List;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import com.mrpoll.validator.UniqueUsername;
+import org.hibernate.validator.constraints.Email;
 
+@UniqueUsername
+@UniqueEmail
 @FieldMatch(first = "password", second = "confirmPassword", message = "Passwords don't match")
-@Username
 public class FormUser {
     
     private Integer id;
@@ -23,6 +26,7 @@ public class FormUser {
 
     @NotNull
     @Size(min=5, max=100)
+    @Email
     private String email;
 
     @NotNull

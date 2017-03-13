@@ -6,11 +6,8 @@
 package com.mrpoll.service;
 
 import com.mrpoll.controller.FormUser;
-import com.mrpoll.dao.RoleDao;
 import com.mrpoll.dao.UserRepository;
-import com.mrpoll.model.Role;
 import com.mrpoll.model.User;
-import java.util.List;
 import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,9 +23,6 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private UserDao userDao;
-    
-    @Autowired
-    private RoleDao roleDao;
 
     @Autowired
     private UserRepository userRepository;
@@ -40,28 +34,23 @@ public class UserServiceImpl implements UserService {
     public User findByUsername(String username) {
         User user = userDao.findByUsername(username);
         User user2 = userRepository.findByUsername(username);
-
+        /*
         if (user != null) {
             Hibernate.initialize(user.getRoles());
         }
+        */
 
         return user;
     }
     
     @Override
-    public FormUser findById(Integer id) {
-        return createFormuUser(userDao.findById(id));
-    }
-
-
-    @Override
-    public Role findRoleById(int roleId) {
-        return roleDao.findById(roleId);
+    public User findByEmail(String email) {
+        return userRepository.findByEmail(email);
     }
     
     @Override
-    public List<Role> getRoles() {
-        return roleDao.getRoles();
+    public FormUser findFormUserById(Integer id) {
+        return createFormuUser(userDao.findById(id));
     }
 
     @Override
@@ -102,13 +91,13 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void saveUser(FormUser formUser) {
+    public void saveFormUser(FormUser formUser) {
         User user = createModelBean(formUser);
         userDao.save(user);
     }
 
     @Override
-    public void updateUser(FormUser formUser) {
+    public void updateFormUser(FormUser formUser) {
         User user = createModelBean(formUser);
         userDao.update(user);
     }
@@ -118,6 +107,4 @@ public class UserServiceImpl implements UserService {
         userDao.deleteUserById(id);
     }
 
-    
- 
 }
