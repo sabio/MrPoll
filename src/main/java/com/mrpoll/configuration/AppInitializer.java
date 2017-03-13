@@ -13,6 +13,8 @@ public class AppInitializer extends AbstractAnnotationConfigDispatcherServletIni
     //http://www.mkyong.com/spring-mvc/spring-mvc-form-handling-example/
     //http://www.journaldev.com/2668/spring-validation-example-mvc-validator
     //http://stackoverflow.com/questions/1972933/cross-field-validation-with-hibernate-validator-jsr-303
+    //http://outbottle.com/spring-3-mvc-adding-objects-to-a-list-element-on-the-fly-at-form-submit-generic-method/
+    //http://viralpatel.net/blogs/spring-mvc-multi-row-submit-java-list/
 
     @Override
     protected Class<?>[] getRootConfigClasses() {
