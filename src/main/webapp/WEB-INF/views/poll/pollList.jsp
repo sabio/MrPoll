@@ -13,6 +13,8 @@
             <c:url var="lastUrl" value="/pollList?pageNumber=${totalPages}&pageSize=${pageSize}" />
             <c:url var="prevUrl" value="/pollList?pageNumber=${currentIndex - 1}&pageSize=${pageSize}" />
             <c:url var="nextUrl" value="/pollList?pageNumber=${currentIndex + 1}&pageSize=${pageSize}" />
+            
+            <button type="button" id="addButton" class="add-button btn btn-primary btn-action-width" ><spring:message code="poll.addnewpoll" /></button>
 
             <div class="pagination">
                 <ul>
@@ -89,6 +91,10 @@
             $("#selectPageSize").change(function(){
                 var pageSize = $(this).val();
                 document.location.href = "<c:url value='/pollList'  />?pageSize=" + pageSize;
+            });
+            
+            $("#addButton").click(function () {
+                document.location.href = "<c:url value='/addPoll'  />";
             });
         </script>
     </body>

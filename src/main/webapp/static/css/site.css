@@ -73,3 +73,28 @@ body{
 .btn-action-width{
     min-width: 100px;
 }
+
+
+.questionDiv{
+    padding:20px;
+}
+
+.questionDiv.odd{
+    background-color: #b0d7f4;
+}
+
+.questionDiv.even{
+    background-color: #cbe0ef;
+}
+
+.questionDiv .removeQuestionIcon{
+    color: red;
+    cursor: pointer;
+    padding: 5px;
+}
+
+
+.questionDiv .removeChoiceIcon{
+    color: red;
+    cursor: pointer;
+}

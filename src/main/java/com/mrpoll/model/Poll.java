@@ -25,10 +25,7 @@ import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-/**
- *
- * @author Armando UDS
- */
+
 @Entity
 @Table(name = "poll")
 public class Poll implements Serializable {
@@ -41,12 +38,14 @@ public class Poll implements Serializable {
     private Integer id;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 45)
+    @Size(min = 2, max = 100)
     @Column(name = "name")
     private String name;
     @Column(name = "expiration_date")
     @Temporal(TemporalType.TIMESTAMP)
     private Date expirationDate;
+    @Column(name = "enabled")
+    private boolean enabled;
     
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "pollId", fetch = FetchType.EAGER)
     private List<Question> questions;
@@ -107,6 +106,14 @@ public class Poll implements Serializable {
         this.userId = userId;
     }
 
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -130,6 +137,10 @@ public class Poll implements Serializable {
     @Override
     public String toString() {
         return "com.mrpoll.model.Poll[ id=" + id + " ]";
+    }
+    
+    public boolean isNew(){
+        return this.getId() == null;
     }
     
 }
