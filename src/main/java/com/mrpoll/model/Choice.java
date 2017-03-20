@@ -9,6 +9,8 @@ import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -16,28 +18,23 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-/**
- *
- * @author Armando UDS
- */
+
 @Entity
 @Table(name = "choice")
 public class Choice implements Serializable {
-
     private static final long serialVersionUID = 1L;
+    
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @NotNull
     @Column(name = "id")
     private Integer id;
+    
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 50)
     @Column(name = "choice_text")
     private String choiceText;
-    @JoinColumn(name = "question_id", referencedColumnName = "id")
-    @ManyToOne(optional = false)
-    private Question questionId;
 
     public Choice() {
     }
@@ -65,14 +62,6 @@ public class Choice implements Serializable {
 
     public void setChoiceText(String choiceText) {
         this.choiceText = choiceText;
-    }
-
-    public Question getQuestionId() {
-        return questionId;
-    }
-
-    public void setQuestionId(Question questionId) {
-        this.questionId = questionId;
     }
 
     @Override

@@ -29,7 +29,12 @@ public class UserServiceImpl implements UserService {
     
     @Autowired
     private PasswordEncoder passwordEncoder;
-
+    
+    @Override
+    public User findById(Integer id) {
+        return userDao.findById(id);
+    }
+    
     @Override
     public User findByUsername(String username) {
         User user = userDao.findByUsername(username);

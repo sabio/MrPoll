@@ -3,16 +3,22 @@ package com.mrpoll.controller;
 import com.mrpoll.model.Choice;
 import com.mrpoll.model.Poll;
 import com.mrpoll.model.Question;
+import com.mrpoll.model.User;
 import com.mrpoll.service.PollService;
+import com.mrpoll.service.UserService;
 import com.mrpoll.utils.Constants;
 import com.mrpoll.validator.PollFormValidator;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
+import org.springframework.context.MessageSource;
 import org.springframework.data.domain.Page;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -33,14 +39,20 @@ public class PollController {
 
     @Autowired
     private PollService pollService;
+    
+    @Autowired
+    private UserService userService;
 
     @Autowired
     PollFormValidator pollFormValidator;
+    
+    @Autowired
+    private MessageSource messageSource;
 
     @InitBinder
     protected void initBinder(WebDataBinder binder) {
         binder.setValidator(pollFormValidator);
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm");
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
         CustomDateEditor editor = new CustomDateEditor(dateFormat, true);
         binder.registerCustomEditor(Date.class, editor);
 
@@ -72,6 +84,7 @@ public class PollController {
     @RequestMapping(value = {"/addPoll"}, method = RequestMethod.GET)
     public String addUser(Model model) {
         Poll p = new Poll();
+        /*
         List<Question> qs = new ArrayList<>();
         List<Choice> cs = new ArrayList<>();
         
@@ -85,31 +98,40 @@ public class PollController {
         q.setQuestionText("Question x");
         q.setChoices(cs);
         
-        qs.add(q);qs.add(q);
+        qs.add(q);
         
         p.setQuestions(qs);
-        
-        
+         */
+
         model.addAttribute("poll", p);
         return viewsdir + "pollForm";
     }
 
     @RequestMapping(value = "/addPoll", method = RequestMethod.POST)
-    public String addPoll(@ModelAttribute("poll") @Validated Poll poll, BindingResult result, Model model, final RedirectAttributes redirectAttributes) {
-    //public String addPoll(javax.servlet.http.HttpServletRequest req){
-        
-        //System.out.println("PAr = "+req.getParameter("expirationDate"));
-        
-        
-        
+    public String addPoll(@ModelAttribute("poll") @Validated Poll poll, BindingResult result, Model model, final RedirectAttributes redirectAttributes, Locale locale) {
         if (result.hasErrors()) {
             //populateDefaultModel(model);
             return viewsdir + "pollForm";
         } else {
-
+            
+            populateExtraInfo(poll);
+            pollService.savePoll(poll);
+            redirectAttributes.addFlashAttribute("css", "success");
+            redirectAttributes.addFlashAttribute("msg", messageSource.getMessage("poll.added", null, locale));
+            
             return "redirect:/pollList";
-
         }
+    }
+
+
+
+    private void populateExtraInfo(Poll poll) {
+        //Find logged user and set it in poll
+        UserDetails principal = (UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User user = userService.findByUsername(principal.getUsername());
+        poll.setUserId(user);
+        
+        //
         
     }
 }

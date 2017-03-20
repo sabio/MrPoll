@@ -9,6 +9,8 @@ public interface UserService {
     
     User findByUsername(String username);
     
+    User findById(Integer id);
+    
     User findByEmail(String username);
     
     Page<User> getUserListPage(Integer pageNumber, Integer pageSize);

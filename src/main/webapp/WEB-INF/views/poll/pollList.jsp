@@ -14,6 +14,15 @@
             <c:url var="prevUrl" value="/pollList?pageNumber=${currentIndex - 1}&pageSize=${pageSize}" />
             <c:url var="nextUrl" value="/pollList?pageNumber=${currentIndex + 1}&pageSize=${pageSize}" />
             
+            <c:if test="${not empty msg}">
+                <div class="alert alert-${css} alert-dismissible" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <strong>${msg}</strong>
+                </div>
+            </c:if>
+            
             <button type="button" id="addButton" class="add-button btn btn-primary btn-action-width" ><spring:message code="poll.addnewpoll" /></button>
 
             <div class="pagination">
@@ -65,6 +74,7 @@
                         <td><spring:message code="poll.pollname" /></td>
                         <td><spring:message code="poll.numofquestions" /></td>
                         <td><spring:message code="status" /></td>
+                        <td></td>
                     </tr>
                 </thead>
                 <tbody>
@@ -80,6 +90,10 @@
                                     <td>${obj.name}</td>
                                     <td>${obj.questions.size()}</td>
                                     <td>${obj.expirationDate}</td>
+                                    <td>
+                                        <a href="<c:url value='/editPoll/${obj.id}' />" class="btn btn-success btn-action-width"><spring:message code="edit" /></a>
+                                        <a href="<c:url value='/deletePoll/${obj.id}' />" class="btn btn-danger btn-action-width"><spring:message code="delete" /></a>
+                                    </td>
                                 </tr>
                             </c:forEach>
                         </c:otherwise>

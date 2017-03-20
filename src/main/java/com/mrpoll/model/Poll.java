@@ -29,8 +29,8 @@ import javax.validation.constraints.Size;
 @Entity
 @Table(name = "poll")
 public class Poll implements Serializable {
-
     private static final long serialVersionUID = 1L;
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
@@ -47,7 +47,8 @@ public class Poll implements Serializable {
     @Column(name = "enabled")
     private boolean enabled;
     
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "pollId", fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name= "poll_id", referencedColumnName = "id", nullable = false, updatable = false, insertable = false)
     private List<Question> questions;
     
     @JoinColumn(name = "user_id", referencedColumnName = "id")

@@ -34,10 +34,10 @@
             <form:form id="form" class="form-horizontal" method="post" modelAttribute="poll" action="${actionUrl}">
                 <form:hidden path="id" />
                 
-                <spring:bind path="*">
+                <spring:bind path="poll">
                     <c:if test="${status.error}">
                         <div class="alert alert-danger" style="text-align: center;">
-                            <form:errors path="*" class="control-label" />
+                            <form:errors path="" class="control-label" />
                         </div>
                     </c:if>
                 </spring:bind>
@@ -58,26 +58,25 @@
                         <label class="col-sm-2 control-label"><spring:message code="poll.expirationdate" /></label>
                         <div class="col-sm-9">
                             <spring:message code="poll.expirationdate" var="expirationDatePlaceholder"/> 
-                            <form:input type="datetime-local"  path="expirationDate" class="form-control" placeholder='${expirationDatePlaceholder}' autocomplete="off" />
+                            
+                            <form:input path="expirationDate" class="form-control" placeholder='${expirationDatePlaceholder}' autocomplete="off" />
+                            
                             <form:errors path="expirationDate" class="control-label" />
                         </div>
                     </div>
                 </spring:bind>
                 
-                <h2><spring:message code="poll.questions" />:</h2>
-                <div class="text-center">
-                    <button id="addQuestionBtn" class="btn btn-success btn-action-width" ><spring:message code="poll.addquestion" /></button>
-                </div>
-                
+                <h2><spring:message code="poll.questions" />: <button id="addQuestionBtn" class="btn btn-success btn-action-width" ><spring:message code="poll.addquestion" /></button></h2>
                 
                 <div id="questionsDiv">
                     <c:if test="${not empty poll.questions}">
                         <c:forEach var="i" begin="0" end="${fn:length(poll.questions) - 1}"  >
                             <div class="questionDiv ${ (i+1) % 2 == 0 ? 'even' : 'odd' }">
                                 <div class="form-group">
-                                    <label class="col-sm-2 control-label">Question <span class="questionNumber">${i + 1}</span></label>
-
                                     <spring:bind path="questions[${i}].questionText">
+                                        <label class="col-sm-2 control-label ">Question <span class="questionNumber">${i + 1}</span></label>
+
+                                    
                                         <div class="col-sm-8 form-group ${status.error ? 'has-error' : ''}">
                                             <form:textarea path="questions[${i}].questionText" class="form-control" />
                                             <form:errors path="questions[${i}].questionText" class="control-label" />
@@ -94,16 +93,18 @@
 
 
                                     <c:forEach var="j" begin="0" end="${fn:length(poll.questions[i].choices) - 1}" >
-                                        <div class="choiceDiv form-group">
-                                            <label class="col-sm-3 control-label">Choice <span class="choiceNumber">${j + 1}</span></label>
-                                            <div class="col-sm-6 ">
-                                                <form:input path="questions[${i}].choices[${j}].choiceText" class="form-control" autocomplete="off" />
-                                                <form:errors path="questions[${i}].choices[${j}].choiceText" class="control-label" />
+                                        <spring:bind path="questions[${i}].choices[${j}].choiceText">
+                                            <div class="choiceDiv form-group ${status.error ? 'has-error' : ''}">
+                                                <label class="col-sm-3 control-label">Choice <span class="choiceNumber">${j + 1}</span></label>
+                                                <div class="col-sm-6 ">
+                                                    <form:input path="questions[${i}].choices[${j}].choiceText" class="form-control" autocomplete="off" />
+                                                    <form:errors path="questions[${i}].choices[${j}].choiceText" class="control-label" />
+                                                </div>
+                                                <div class="col-sm-1 form-group">
+                                                    <span class="glyphicon glyphicon-remove removeChoiceIcon" />
+                                                </div>
                                             </div>
-                                            <div class="col-sm-1 form-group">
-                                                <span class="glyphicon glyphicon-remove removeChoiceIcon" />
-                                            </div>
-                                        </div>
+                                        </spring:bind>
                                     </c:forEach>
 
 
@@ -169,7 +170,7 @@
                 
                 
                 <div class="form-group">
-                    <div class="col-sm-offset-2 col-sm-9 text-center">
+                    <div class="col-sm-12 text-center">
                         <button type="button" onclick="document.location.href='<c:url value='/pollList'  />'" class="btn-lg btn-primary "><spring:message code="back" /></button>
                         <c:choose>
                             <c:when test="${poll['new']}">
@@ -187,6 +188,7 @@
         
         <script type="text/javascript">
             $( document ).ready(function() {
+                $('#expirationDate').datetimepicker({format: 'Y-m-d H:i'});
                 
                 $("#questionsDiv .questionDiv").each(function(index, value){
                     addClickListeners(value);

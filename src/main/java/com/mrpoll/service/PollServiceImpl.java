@@ -1,5 +1,6 @@
 package com.mrpoll.service;
 
+import com.mrpoll.dao.PollDao;
 import com.mrpoll.dao.PollRepository;
 import com.mrpoll.model.Poll;
 import com.mrpoll.utils.Constants;
@@ -16,11 +17,19 @@ public class PollServiceImpl implements PollService{
     @Autowired
     private PollRepository pollRepository;
     
+    @Autowired
+    private PollDao pollDao;
+    
     @Override
     public Page<Poll> getPollListPage(Integer pageNumber, Integer pageSize){
 //        pageNumber = pageNumber == null ? Constants.DEFAULT_PAGE_NUMBER : pageNumber;
 //        pageSize = pageSize == null ? Constants.DEFAULT_PAGE_SIZE : pageSize;
         
         return pollRepository.findAll(new PageRequest(pageNumber, pageSize));
+    }
+
+    @Override
+    public void savePoll(Poll poll) {
+        pollDao.save(poll);
     }
 }
