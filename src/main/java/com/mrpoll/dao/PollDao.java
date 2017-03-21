@@ -11,4 +11,8 @@ public interface PollDao {
     void update(Poll poll);
     
     User getPollOwner(Integer idPoll);
+    
+    void removeQuestion(Integer idQuestion);
+    
+    void removeChoice(Integer idChoice);
 }

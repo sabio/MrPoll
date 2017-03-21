@@ -146,5 +146,13 @@ public class Poll implements Serializable {
     public boolean isNew(){
         return this.getId() == null;
     }
+
+    public boolean containsChoice(Choice choiceToFind) {
+        if(this.getQuestions() == null) return false;
+        
+        return getQuestions().stream().anyMatch(
+                (question) -> (question.getChoices() != null && question.getChoices().contains(choiceToFind))
+        );
+    }
     
 }

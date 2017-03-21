@@ -8,7 +8,7 @@
  * Created: 5/02/2017
  */
 
-select * from role;
+
 insert into user
 (id, name, username, password, email, enabled)
 values
@@ -29,6 +29,3 @@ insert into user_role
 values
 (1,1);
 
-
-'$2a$10$4eqIF5s/ewJwHK1p8lqlFOEm2QIA0S8g6./Lok.pQxqcxaBZYChRm'
-abc125

@@ -72,10 +72,10 @@
                     <c:if test="${not empty poll.questions}">
                         <c:forEach var="i" begin="0" end="${fn:length(poll.questions) - 1}"  >
                             <div class="questionDiv ${ (i+1) % 2 == 0 ? 'even' : 'odd' }">
-                                <c:if test="${poll.questions[i].id ne null}">
-                                    <form:hidden path="questions[${i}].id" />
-                                </c:if>
                                 <div class="form-group">
+                                    <c:if test="${poll.questions[i].id ne null}">
+                                        <form:hidden path="questions[${i}].id" />
+                                    </c:if>
                                     <spring:bind path="questions[${i}].questionText">
                                         <label class="col-sm-2 control-label ">Question <span class="questionNumber">${i + 1}</span></label>
 
