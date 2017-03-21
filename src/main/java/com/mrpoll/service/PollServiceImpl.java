@@ -3,6 +3,7 @@ package com.mrpoll.service;
 import com.mrpoll.dao.PollDao;
 import com.mrpoll.dao.PollRepository;
 import com.mrpoll.model.Poll;
+import com.mrpoll.model.User;
 import com.mrpoll.utils.Constants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -31,5 +32,21 @@ public class PollServiceImpl implements PollService{
     @Override
     public void savePoll(Poll poll) {
         pollDao.save(poll);
+    }
+
+    @Override
+    public Poll findById(Integer id) {
+        return pollDao.findById(id);
+    }
+
+    @Override
+    public void updatePoll(Poll poll) {
+        pollDao.update(poll);
+    }
+
+    @Override
+    public User getPollOwner(Integer idPoll) {
+        return pollDao.getPollOwner(idPoll);
+        
     }
 }

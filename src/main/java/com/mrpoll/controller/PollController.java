@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.context.MessageSource;
@@ -27,6 +28,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -84,25 +86,6 @@ public class PollController {
     @RequestMapping(value = {"/addPoll"}, method = RequestMethod.GET)
     public String addUser(Model model) {
         Poll p = new Poll();
-        /*
-        List<Question> qs = new ArrayList<>();
-        List<Choice> cs = new ArrayList<>();
-        
-        Choice c = new Choice();
-        c.setId(1);
-        c.setChoiceText("Choice x");
-        cs.add(c);cs.add(c);
-        
-        Question q = new Question();
-        q.setId(1);
-        q.setQuestionText("Question x");
-        q.setChoices(cs);
-        
-        qs.add(q);
-        
-        p.setQuestions(qs);
-         */
-
         model.addAttribute("poll", p);
         return viewsdir + "pollForm";
     }
@@ -113,7 +96,6 @@ public class PollController {
             //populateDefaultModel(model);
             return viewsdir + "pollForm";
         } else {
-            
             populateExtraInfo(poll);
             pollService.savePoll(poll);
             redirectAttributes.addFlashAttribute("css", "success");
@@ -122,16 +104,38 @@ public class PollController {
             return "redirect:/pollList";
         }
     }
-
+    
+    @RequestMapping(value = {"/editPoll/{id}"}, method = RequestMethod.GET)
+    public String editPoll(@PathVariable("id") Integer id, Model model) {
+        Poll poll = pollService.findById(id);
+        model.addAttribute("poll", poll);
+        return viewsdir + "pollForm";
+    }
+    
+    @RequestMapping(value = {"/editPoll"}, method = RequestMethod.POST)
+    public String editPoll(@Valid Poll poll, BindingResult result, Model model, final RedirectAttributes redirectAttributes, Locale locale) {
+        if (result.hasErrors()) {
+            return viewsdir + "pollForm";
+        }
+        populateExtraInfo(poll);
+        pollService.updatePoll(poll);
+        redirectAttributes.addFlashAttribute("css", "success");
+        redirectAttributes.addFlashAttribute("msg", messageSource.getMessage("poll.updated", null, locale));
+        
+        return "redirect:/pollList";
+    }
 
 
     private void populateExtraInfo(Poll poll) {
         //Find logged user and set it in poll
-        UserDetails principal = (UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        User user = userService.findByUsername(principal.getUsername());
-        poll.setUserId(user);
-        
-        //
+        if(poll.getId() == null){
+            UserDetails principal = (UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+            User user = userService.findByUsername(principal.getUsername());
+            poll.setUserId(user);
+        }
+        else{
+            poll.setUserId(pollService.getPollOwner(poll.getId()));
+        }
         
     }
 }

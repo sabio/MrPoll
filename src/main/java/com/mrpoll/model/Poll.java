@@ -24,6 +24,8 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 
 @Entity
@@ -49,6 +51,7 @@ public class Poll implements Serializable {
     
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name= "poll_id", referencedColumnName = "id", nullable = false, updatable = false, insertable = false)
+    @Fetch (FetchMode.SELECT) 
     private List<Question> questions;
     
     @JoinColumn(name = "user_id", referencedColumnName = "id")

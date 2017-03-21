@@ -72,6 +72,9 @@
                     <c:if test="${not empty poll.questions}">
                         <c:forEach var="i" begin="0" end="${fn:length(poll.questions) - 1}"  >
                             <div class="questionDiv ${ (i+1) % 2 == 0 ? 'even' : 'odd' }">
+                                <c:if test="${poll.questions[i].id ne null}">
+                                    <form:hidden path="questions[${i}].id" />
+                                </c:if>
                                 <div class="form-group">
                                     <spring:bind path="questions[${i}].questionText">
                                         <label class="col-sm-2 control-label ">Question <span class="questionNumber">${i + 1}</span></label>
@@ -91,23 +94,25 @@
                                         <button class="btn btn-success btn-action-width addChoiceBtn" ><spring:message code="poll.addchoice" /></button>
                                     </div>
 
-
-                                    <c:forEach var="j" begin="0" end="${fn:length(poll.questions[i].choices) - 1}" >
-                                        <spring:bind path="questions[${i}].choices[${j}].choiceText">
-                                            <div class="choiceDiv form-group ${status.error ? 'has-error' : ''}">
-                                                <label class="col-sm-3 control-label">Choice <span class="choiceNumber">${j + 1}</span></label>
-                                                <div class="col-sm-6 ">
-                                                    <form:input path="questions[${i}].choices[${j}].choiceText" class="form-control" autocomplete="off" />
-                                                    <form:errors path="questions[${i}].choices[${j}].choiceText" class="control-label" />
+                                    <c:if test="${not empty poll.questions[i].choices}">
+                                        <c:forEach var="j" begin="0" end="${fn:length(poll.questions[i].choices) - 1}" >
+                                            <spring:bind path="questions[${i}].choices[${j}].choiceText">    
+                                                <div class="choiceDiv form-group ${status.error ? 'has-error' : ''}">
+                                                    <c:if test="${poll.questions[i].choices[j].id ne null}">
+                                                        <form:hidden path="questions[${i}].choices[${j}].id" />
+                                                    </c:if>
+                                                    <label class="col-sm-3 control-label">Choice <span class="choiceNumber">${j + 1}</span></label>
+                                                    <div class="col-sm-6 ">
+                                                        <form:input path="questions[${i}].choices[${j}].choiceText" class="form-control" autocomplete="off" />
+                                                        <form:errors path="questions[${i}].choices[${j}].choiceText" class="control-label" />
+                                                    </div>
+                                                    <div class="col-sm-1 form-group">
+                                                        <span class="glyphicon glyphicon-remove removeChoiceIcon" />
+                                                    </div>
                                                 </div>
-                                                <div class="col-sm-1 form-group">
-                                                    <span class="glyphicon glyphicon-remove removeChoiceIcon" />
-                                                </div>
-                                            </div>
-                                        </spring:bind>
-                                    </c:forEach>
-
-
+                                            </spring:bind>
+                                        </c:forEach>
+                                    </c:if>
                                 </div>
                             </div>
                         </c:forEach>
@@ -236,6 +241,9 @@
             function updateQuestionsNumbersAndAttributes(){
                 $("#questionsDiv .questionDiv").each(function(index, value){
                     $(value).find(".questionNumber").html(index + 1);
+                    $(value).find("input[type=hidden]:first-child").attr("id","questions"+index+".id");
+                    $(value).find("input[type=hidden]:first-child").attr("name","questions["+index+"].id");
+                    
                     $(value).find("textarea:first-child").attr("id","questions"+index+".questionText");
                     $(value).find("textarea:first-child").attr("name","questions["+index+"].questionText");
                     
@@ -244,8 +252,11 @@
                     });
                     
                     $(value).find(".choiceDiv").each(function(index2, value2){
-                        $(value2).find("input:first-child").attr("id","questions"+index+".choices"+index2+".choiceText");
-                        $(value2).find("input:first-child").attr("name","questions["+index+"].choices["+index2+"].choiceText");
+                        $(value2).find("input[type=hidden]:first-child").attr("id","questions"+index+".choices"+index2+".id");
+                        $(value2).find("input[type=hidden]:first-child").attr("name","questions["+index+"].choices["+index2+"].id");
+                        
+                        $(value2).find("input[type=text]:first-child").attr("id","questions"+index+".choices"+index2+".choiceText");
+                        $(value2).find("input[type=text]:first-child").attr("name","questions["+index+"].choices["+index2+"].choiceText");
                     });
                 });
                 

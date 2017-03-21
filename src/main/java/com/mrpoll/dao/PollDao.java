@@ -1,7 +1,14 @@
 package com.mrpoll.dao;
 
 import com.mrpoll.model.Poll;
+import com.mrpoll.model.User;
 
 public interface PollDao {
-    public void save(Poll poll);
+    Poll findById(Integer id);
+    
+    void save(Poll poll);
+    
+    void update(Poll poll);
+    
+    User getPollOwner(Integer idPoll);
 }
