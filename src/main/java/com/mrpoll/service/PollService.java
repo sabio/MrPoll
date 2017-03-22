@@ -8,11 +8,13 @@ public interface PollService {
     
     Poll findById(Integer id);
     
+    void deletePollById(Integer id);
+    
     Page<Poll> getPollListPage(Integer pageNumber, Integer pageSize);
 
-    public void savePoll(Poll poll);
+    void savePoll(Poll poll);
     
-    public void updatePoll(Poll poll);
+    void updatePoll(Poll poll);
     
-    public User getPollOwner(Integer idPoll);
+    User getPollOwner(Integer idPoll);
 }

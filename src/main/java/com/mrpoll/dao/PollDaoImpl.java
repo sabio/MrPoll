@@ -68,4 +68,10 @@ public class PollDaoImpl extends AbstractDao<Integer, Poll> implements PollDao {
         super.update(poll);
     }
 
+    @Override
+    public void deletePollById(Integer id) {
+        Poll poll = getByKey(id);
+        delete(poll);
+    }
+
 }

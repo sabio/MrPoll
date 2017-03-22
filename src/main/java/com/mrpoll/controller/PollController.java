@@ -124,6 +124,15 @@ public class PollController {
         
         return "redirect:/pollList";
     }
+    
+    
+    @RequestMapping(value = {"/deletePoll/{id}"}, method = RequestMethod.GET)
+    public String deletePoll(@PathVariable("id") Integer id, final RedirectAttributes redirectAttributes, Locale locale) {
+        pollService.deletePollById(id);
+        redirectAttributes.addFlashAttribute("css", "success");
+        redirectAttributes.addFlashAttribute("msg", messageSource.getMessage("poll.deleted", null, locale));
+        return "redirect:/pollList";
+    }
 
 
     private void populateExtraInfo(Poll poll) {

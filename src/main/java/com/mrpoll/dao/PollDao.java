@@ -15,4 +15,6 @@ public interface PollDao {
     void removeQuestion(Integer idQuestion);
     
     void removeChoice(Integer idChoice);
+
+    public void deletePollById(Integer id);
 }
