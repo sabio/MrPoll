@@ -6,18 +6,17 @@ import java.util.List;
 
 public class FormResponse {
     private Integer idPoll;
-    private String ipAddress;
     private Date responseDate;
-    private List<FormChoiceResponse> responses;
-    
+    private List<FormChoiceResponse> formChoiceResponses;
 
-    public List<FormChoiceResponse> getResponses() {
-        return responses;
+    public List<FormChoiceResponse> getFormChoiceResponses() {
+        return formChoiceResponses;
     }
 
-    public void setResponses(List<FormChoiceResponse> responses) {
-        this.responses = responses;
+    public void setFormChoiceResponses(List<FormChoiceResponse> formChoiceResponses) {
+        this.formChoiceResponses = formChoiceResponses;
     }
+
     
 
     public Integer getIdPoll() {
@@ -26,14 +25,6 @@ public class FormResponse {
 
     public void setIdPoll(Integer idPoll) {
         this.idPoll = idPoll;
-    }
-
-    public String getIpAddress() {
-        return ipAddress;
-    }
-
-    public void setIpAddress(String ipAddress) {
-        this.ipAddress = ipAddress;
     }
 
     public Date getResponseDate() {

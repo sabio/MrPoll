@@ -15,25 +15,30 @@
             <h2>${poll.name}</h2>
 
             <form:form id="form" class="form-horizontal" method="post" modelAttribute="formResponse" action="${actionUrl}">
-                
+                <form:hidden path="idPoll" value="${poll.id}" />
                 <div id="questionsDiv">
                     <c:forEach var="i" begin="0" end="${fn:length(poll.questions) - 1}"  >
-                        <div class="questionDiv">
-                            <div class="form-group">
-                                <label>
-                                    <span class="questionNumber">
-                                        ${i + 1}.
-                                    </span> ${poll.questions[i].questionText}
-                                </label>
-                                <c:forEach var="j" begin="0" end="${fn:length(poll.questions[i].choices) - 1}" >
-                                    <div class="choiceDiv ">
-                                        <label>
-                                            <form:radiobutton path="responses[${i}].idChoice" value="${poll.questions[i].choices[j].id}"  /> ${poll.questions[i].choices[j].choiceText} 
-                                        </label>
+                        <spring:bind path="formChoiceResponses[${i}].idQuestion">
+                            <div class="questionDiv">
+                                <div class="form-group ${status.error ? 'has-error' : ''}">
+                                    <label class="control-label" style="text-align: left">
+                                        <span class="questionNumber">
+                                            ${i + 1}.
+                                        </span> ${poll.questions[i].questionText}
+                                    </label>
+                                    <form:hidden path="formChoiceResponses[${i}].idQuestion" value="${poll.questions[i].id}"  />
+
+                                    <div class="errormessage">
+                                        <form:errors path="formChoiceResponses[${i}].idQuestion" class="control-label" />
                                     </div>
-                                </c:forEach>
+                                    <c:forEach var="j" begin="0" end="${fn:length(poll.questions[i].choices) - 1}" >
+                                        <div class="choiceDiv control-label" style="text-align: left"s>
+                                            <form:radiobutton path="formChoiceResponses[${i}].idChoice" value="${poll.questions[i].choices[j].id}"  /> ${poll.questions[i].choices[j].choiceText} 
+                                        </div>
+                                    </c:forEach>
+                                </div>
                             </div>
-                        </div>
+                        </spring:bind>
                     </c:forEach>
                 </div>
                 <br />

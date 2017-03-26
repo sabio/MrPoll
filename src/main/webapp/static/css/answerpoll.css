@@ -61,5 +61,9 @@ input[type=radio] {
     width: 100%;
 }
 
+.questionDiv .errormessage{
+    font-size: 15px;
+    font-weight: bolder;
+}
 
 
