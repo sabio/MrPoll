@@ -36,13 +36,24 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests().antMatchers("/", "/list")
-                .access("hasRole('ROLE_ADMIN') or hasRole('USER') or hasRole('ADMIN') or hasRole('DBA')")
-                .antMatchers("/newuser/**", "/delete-user-*").access("hasRole('ADMIN')").antMatchers("/edit-user-*")
-                .access("hasRole('ROLE_ADMIN') or hasRole('ADMIN') or hasRole('DBA')").and().formLogin().loginPage("/login")
-                .loginProcessingUrl("/login").usernameParameter("ssoId").passwordParameter("password").and()
+        http.authorizeRequests()
+                
+                .antMatchers("/","/list","/pollList","/editPoll/*","/addPoll")
+                .access("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
+                
+                .antMatchers("/userList","/editUser/*","/addUser")
+                .access("hasRole('ROLE_ADMIN')")
+
+                .and()
+                .formLogin().loginPage("/login")
+                .loginProcessingUrl("/login").usernameParameter("ssoId").passwordParameter("password")
+                
+                .and()
                 .rememberMe().rememberMeParameter("remember-me").tokenRepository(tokenRepository)
-                .tokenValiditySeconds(86400).and().csrf().and().exceptionHandling().accessDeniedPage("/Access_Denied");
+                .tokenValiditySeconds(86400).and().csrf()
+                
+                .and()
+                .exceptionHandling().accessDeniedPage("/Access_Denied");
     }
 
     @Bean

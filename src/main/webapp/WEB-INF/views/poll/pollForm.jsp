@@ -53,15 +53,15 @@
                     </div>
                 </spring:bind>
                 
-                <spring:bind path="expirationDate">
+                <spring:bind path="expirationDatetime">
                     <div class="form-group ${status.error ? 'has-error' : ''}">
-                        <label class="col-sm-2 control-label"><spring:message code="poll.expirationdate" /></label>
+                        <label class="col-sm-2 control-label"><spring:message code="poll.expirationdatetime" /></label>
                         <div class="col-sm-9">
-                            <spring:message code="poll.expirationdate" var="expirationDatePlaceholder"/> 
+                            <spring:message code="poll.expirationdatetime" var="expirationDatetimePlaceholder"/> 
                             
-                            <form:input path="expirationDate" class="form-control" placeholder='${expirationDatePlaceholder}' autocomplete="off" />
+                            <form:input path="expirationDatetime" class="form-control" placeholder='${expirationDatetimePlaceholder}' autocomplete="off" />
                             
-                            <form:errors path="expirationDate" class="control-label" />
+                            <form:errors path="expirationDatetime" class="control-label" />
                         </div>
                     </div>
                 </spring:bind>

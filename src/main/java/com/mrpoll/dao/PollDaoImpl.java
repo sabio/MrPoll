@@ -6,7 +6,9 @@ import com.mrpoll.model.Question;
 import com.mrpoll.model.User;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import org.hibernate.Criteria;
 import org.hibernate.Query;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 
 @Repository("pollDao")
@@ -72,6 +74,14 @@ public class PollDaoImpl extends AbstractDao<Integer, Poll> implements PollDao {
     public void deletePollById(Integer id) {
         Poll poll = getByKey(id);
         delete(poll);
+    }
+
+    @Override
+    public Poll findByUUID(String uuid) {
+        Criteria crit = createEntityCriteria();
+        crit.add(Restrictions.eq("uuid", uuid));
+        Poll poll = (Poll) crit.uniqueResult();
+        return poll;
     }
 
 }

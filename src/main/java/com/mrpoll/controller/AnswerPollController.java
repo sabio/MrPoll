@@ -44,9 +44,9 @@ public class AnswerPollController {
         binder.setValidator(answerPollFormValidator);
     }
     
-    @RequestMapping(value = {"/answerPoll/{id}"}, method = RequestMethod.GET)
-    public String answerPoll(@PathVariable("id") Integer id, Model model){
-        Poll poll = pollService.findById(id);
+    @RequestMapping(value = {"/answerPoll/{uuid}"}, method = RequestMethod.GET)
+    public String answerPoll(@PathVariable("uuid") String uuid, Model model){
+        Poll poll = pollService.findByUUID(uuid);
         FormResponse formResponse = new FormResponse();
         model.addAttribute("formResponse", formResponse);
         model.addAttribute("poll", poll);
@@ -54,10 +54,10 @@ public class AnswerPollController {
     }
     
     
-    @RequestMapping(value = {"/answerPoll/{id}"}, method = RequestMethod.POST)
-    public String answerPoll(@PathVariable("id") Integer id, @Valid FormResponse formResponse, BindingResult result, Model model, final RedirectAttributes redirectAttributes, Locale locale){
+    @RequestMapping(value = {"/answerPoll/{uuid}"}, method = RequestMethod.POST)
+    public String answerPoll(@PathVariable("uuid") String uuid, @Valid FormResponse formResponse, BindingResult result, Model model, final RedirectAttributes redirectAttributes, Locale locale){
         if (result.hasErrors()) {
-            Poll poll = pollService.findById(id);
+            Poll poll = pollService.findByUUID(uuid);
             model.addAttribute("poll", poll);
             return viewsdir + "answerPoll";
         }

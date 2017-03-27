@@ -89,7 +89,7 @@
                                 <tr>
                                     <td>${obj.name}</td>
                                     <td>${obj.questions.size()}</td>
-                                    <td>${obj.expirationDate}</td>
+                                    <td>${obj.expirationDatetime}</td>
                                     <td>
                                         <a href="<c:url value='/editPoll/${obj.id}' />" class="btn btn-success btn-action-width"><spring:message code="edit" /></a>
                                         <a href="<c:url value='/deletePoll/${obj.id}' />" class="btn btn-danger btn-action-width"><spring:message code="delete" /></a>

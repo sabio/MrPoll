@@ -36,9 +36,9 @@ public class PollFormValidator implements Validator {
         
         //Validate expiration date 
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "expirationDate", "poll.expirationdatemustnotbeempty");
-        Date expirationDate = poll.getExpirationDate();
-        if(expirationDate != null && new Date().after(expirationDate)){
-            errors.rejectValue("expirationDate", "poll.expirationdatemustbeinthefuture");
+        Date expirationDatetime = poll.getExpirationDatetime();
+        if(expirationDatetime != null && new Date().after(expirationDatetime)){
+            errors.rejectValue("expirationDatetime", "poll.expirationdatetimemustbeinthefuture");
         }
         
         

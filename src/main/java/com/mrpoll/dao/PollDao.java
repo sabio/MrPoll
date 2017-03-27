@@ -17,4 +17,6 @@ public interface PollDao {
     void removeChoice(Integer idChoice);
 
     public void deletePollById(Integer id);
+
+    public Poll findByUUID(String uuid);
 }

@@ -53,4 +53,9 @@ public class PollServiceImpl implements PollService{
     public void deletePollById(Integer id) {
         pollDao.deletePollById(id);
     }
+
+    @Override
+    public Poll findByUUID(String uuid) {
+        return pollDao.findByUUID(uuid);
+    }
 }

@@ -22,7 +22,7 @@ values
 insert into role
 (id, role)
 values
-(2, 'ROLE_POLLMAKER');
+(2, 'ROLE_USER');
 
 insert into user_role
 (user_id, role_id)

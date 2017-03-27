@@ -20,9 +20,9 @@ public class AnswerPollDaoImpl implements AnswerPollDao{
     @Override
     public void insertResponse(FormResponse formResponse) {
         String insertResponseSql = "INSERT INTO response (poll_id, response_datetime) VALUES (?,?)";
-        
         JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
         GeneratedKeyHolder holder = new GeneratedKeyHolder();
+        
         jdbcTemplate.update((Connection con) -> {
             PreparedStatement statement = con.prepareStatement(insertResponseSql, Statement.RETURN_GENERATED_KEYS);
             statement.setInt(1, formResponse.getIdPoll());
@@ -31,12 +31,12 @@ public class AnswerPollDaoImpl implements AnswerPollDao{
         }, holder);
         
         Integer responsePrimaryKey = holder.getKey().intValue();
-        
         formResponse.getFormChoiceResponses().forEach((c)-> insertChoiceResponse(responsePrimaryKey,c));
     }
     
     private void insertChoiceResponse(Integer responseId, FormChoiceResponse formChoiceResponse) {
-        
+        String insertChoiceResponseSql = "INSERT INTO choice_response (response_id, question_id, choice_id) VALUES (?,?,?)";
+        new JdbcTemplate(dataSource).update(insertChoiceResponseSql, responseId, formChoiceResponse.getIdQuestion(), formChoiceResponse.getIdChoice());
     }
     
 }

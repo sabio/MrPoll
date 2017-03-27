@@ -38,16 +38,22 @@ public class Poll implements Serializable {
     @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
+    
     @Basic(optional = false)
     @NotNull
     @Size(min = 2, max = 100)
     @Column(name = "name")
     private String name;
-    @Column(name = "expiration_date")
+    
+    @Basic(optional = false)
+    @Size(min = 2, max = 45)
+    @Column(name = "uuid", unique=true)
+    private String uuid;
+    
+    @Column(name = "expiration_datetime")
+    @NotNull
     @Temporal(TemporalType.TIMESTAMP)
-    private Date expirationDate;
-    @Column(name = "enabled")
-    private boolean enabled;
+    private Date expirationDatetime;
     
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name= "poll_id", referencedColumnName = "id", nullable = false, updatable = false, insertable = false)
@@ -86,14 +92,23 @@ public class Poll implements Serializable {
         this.name = name;
     }
 
-    public Date getExpirationDate() {
-        return expirationDate;
+    public String getUuid() {
+        return uuid;
     }
 
-    public void setExpirationDate(Date expirationDate) {
-        this.expirationDate = expirationDate;
+    public void setUuid(String uuid) {
+        this.uuid = uuid;
     }
 
+    public Date getExpirationDatetime() {
+        return expirationDatetime;
+    }
+
+    public void setExpirationDatetime(Date expirationDatetime) {
+        this.expirationDatetime = expirationDatetime;
+    }
+    
+    
     public List<Question> getQuestions() {
         return questions;
     }
@@ -108,14 +123,6 @@ public class Poll implements Serializable {
 
     public void setUserId(User userId) {
         this.userId = userId;
-    }
-
-    public boolean isEnabled() {
-        return enabled;
-    }
-
-    public void setEnabled(boolean enabled) {
-        this.enabled = enabled;
     }
 
     @Override

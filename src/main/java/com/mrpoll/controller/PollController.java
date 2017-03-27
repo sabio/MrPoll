@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.UUID;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
@@ -84,7 +85,7 @@ public class PollController {
     }
 
     @RequestMapping(value = {"/addPoll"}, method = RequestMethod.GET)
-    public String addUser(Model model) {
+    public String addPoll(Model model) {
         Poll p = new Poll();
         model.addAttribute("poll", p);
         return viewsdir + "pollForm";
@@ -141,6 +142,8 @@ public class PollController {
             UserDetails principal = (UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
             User user = userService.findByUsername(principal.getUsername());
             poll.setUserId(user);
+            UUID newUuid = UUID.randomUUID();
+            poll.setUuid(newUuid.toString());
         }
         else{
             poll.setUserId(pollService.getPollOwner(poll.getId()));

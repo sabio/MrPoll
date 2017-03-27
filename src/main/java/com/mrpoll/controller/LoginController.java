@@ -54,7 +54,7 @@ public class LoginController {
     @RequestMapping(value = "/Access_Denied", method = RequestMethod.GET)
     public String accessDeniedPage(ModelMap model) {
             model.addAttribute("loggedinuser", getPrincipal());
-            return "accessDenied";
+           return viewsdir+"accessDenied";
     }
 
 

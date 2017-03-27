@@ -9,6 +9,8 @@ public interface PollService {
     
     Poll findById(Integer id);
     
+    Poll findByUUID(String uuid);
+    
     void deletePollById(Integer id);
     
     Page<Poll> getPollListPage(Integer pageNumber, Integer pageSize);
