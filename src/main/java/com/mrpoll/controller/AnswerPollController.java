@@ -8,6 +8,9 @@ import com.mrpoll.validator.AnswerPollFormValidator;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
@@ -16,6 +19,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -44,8 +48,18 @@ public class AnswerPollController {
         binder.setValidator(answerPollFormValidator);
     }
     
+    
+    @RequestMapping(value = {"/availablePolls"}, method = RequestMethod.GET)
+    public String availablePolls(Model model){
+        model.addAttribute("polls", pollService.getAvailablePolls());
+        return viewsdir + "availablePolls";
+    }
+    
     @RequestMapping(value = {"/answerPoll/{uuid}"}, method = RequestMethod.GET)
-    public String answerPoll(@PathVariable("uuid") String uuid, Model model){
+    public String answerPoll(@PathVariable("uuid") String uuid, HttpServletRequest request, Model model){
+        if(isPollAlreadyAnswered(uuid,request)){
+            return "redirect:/pollList";
+        }
         Poll poll = pollService.findByUUID(uuid);
         FormResponse formResponse = new FormResponse();
         model.addAttribute("formResponse", formResponse);
@@ -55,24 +69,36 @@ public class AnswerPollController {
     
     
     @RequestMapping(value = {"/answerPoll/{uuid}"}, method = RequestMethod.POST)
-    public String answerPoll(@PathVariable("uuid") String uuid, @Valid FormResponse formResponse, BindingResult result, Model model, final RedirectAttributes redirectAttributes, Locale locale){
+    public String answerPoll(@PathVariable("uuid") String uuid, @Valid FormResponse formResponse, BindingResult result, Model model, final RedirectAttributes redirectAttributes, Locale locale, HttpServletResponse response){
+        Poll poll = pollService.findByUUID(uuid);
+        model.addAttribute("poll", poll);
         if (result.hasErrors()) {
-            Poll poll = pollService.findByUUID(uuid);
-            model.addAttribute("poll", poll);
             return viewsdir + "answerPoll";
         }
         
         populateExtraInfo(formResponse);
-        answerPollService.saveAnswers(formResponse);
-        /*
-        redirectAttributes.addFlashAttribute("css", "success");
-        redirectAttributes.addFlashAttribute("msg", messageSource.getMessage("poll.added", null, locale));
-        */  
+        answerPollService.saveAnswers(formResponse); 
+        response.addCookie(new Cookie(uuid,"1"));
         
-        return "redirect:/pollList";
+        return viewsdir + "pollAnswered";
     }
 
     private void populateExtraInfo(FormResponse formResponse) {
         formResponse.setResponseDate(new Date());
+    }
+    
+    private boolean isPollAlreadyAnswered(String uuid, HttpServletRequest request){
+        
+        return false;
+        /*
+        if(request.getCookies() == null) return false;
+        
+        for(Cookie c : request.getCookies()){
+            if(c.getName().equals(uuid) && c.getValue().equals("1")) return true;
+        }
+        
+        
+        return false;
+        */
     }
 }

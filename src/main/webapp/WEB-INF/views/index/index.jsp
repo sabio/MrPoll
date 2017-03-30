@@ -1,16 +1,24 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
-
+<%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ page isELIgnored="false" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
-
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<!DOCTYPE html>
 <html>
-
     <head>
-        <title>Mr Poll</title>
+        <title><spring:message code="poll.polllist" /></title>
     </head>
-
     <body>
-        <h1>Hola mundo</h1>
+        <div id="mainContainer" >
+            <h2><spring:message code="hello" /> <sec:authentication property="principal.username" /></h2>
+            <div class="text-center">
+                <h3><spring:message code="welcomemessage" /></h3>
+                <br />
+                <div style="max-width: 500px; margin: auto">
+                    Use the above menu to create/update/delete your polls. If you are an ADMIN user, you can also create/update/delete user accounts but be careful because you might delete your own account :)
+                </div>
+            </div>
+
+        </div>
     </body>
 </html>

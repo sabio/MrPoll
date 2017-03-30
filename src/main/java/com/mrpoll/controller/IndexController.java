@@ -13,6 +13,7 @@ public class IndexController {
     
     @RequestMapping(value = { "/", "/index" })
     public String index(){
+        
         return viewsdir+"index";
     }
 }

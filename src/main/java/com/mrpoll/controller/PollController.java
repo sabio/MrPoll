@@ -134,6 +134,14 @@ public class PollController {
         redirectAttributes.addFlashAttribute("msg", messageSource.getMessage("poll.deleted", null, locale));
         return "redirect:/pollList";
     }
+    
+    
+    @RequestMapping(value = {"/results/{id}"}, method = RequestMethod.GET)
+    public String results(@PathVariable("id") Integer id, Model model) {
+        Poll poll = pollService.findById(id);
+        model.addAttribute("poll", poll);
+        return viewsdir + "pollForm";
+    }
 
 
     private void populateExtraInfo(Poll poll) {
@@ -148,6 +156,5 @@ public class PollController {
         else{
             poll.setUserId(pollService.getPollOwner(poll.getId()));
         }
-        
     }
 }

@@ -4,6 +4,8 @@ import com.mrpoll.dao.PollDao;
 import com.mrpoll.dao.PollRepository;
 import com.mrpoll.model.Poll;
 import com.mrpoll.model.User;
+import java.util.Date;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -27,6 +29,8 @@ public class PollServiceImpl implements PollService{
         
         return pollRepository.findAll(new PageRequest(pageNumber, pageSize));
     }
+    
+    
 
     @Override
     public void savePoll(Poll poll) {
@@ -57,5 +61,10 @@ public class PollServiceImpl implements PollService{
     @Override
     public Poll findByUUID(String uuid) {
         return pollDao.findByUUID(uuid);
+    }
+    
+    @Override
+    public List<Poll> getAvailablePolls() {
+        return pollRepository.getAvailablePolls(new Date());
     }
 }

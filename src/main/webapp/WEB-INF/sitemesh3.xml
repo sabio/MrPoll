@@ -2,6 +2,7 @@
 <sitemesh>
     <mapping path="/login" decorator="/WEB-INF/decorators/decorator1.jsp"/>
     <mapping path="/answerPoll/*" decorator="/WEB-INF/decorators/decorator3.jsp"/>
+    <mapping path="/availablePolls" decorator="/WEB-INF/decorators/decorator3.jsp"/>
     <mapping path="/" decorator="/WEB-INF/decorators/decorator2.jsp"/>
     <!--
         <mapping path="/login" exclude="true"/>

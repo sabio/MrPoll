@@ -29,3 +29,29 @@ insert into user_role
 values
 (1,1);
 
+
+
+
+
+
+
+
+
+
+
+
+
+SELECT 
+count(*),
+q.question_text,
+c.choice_text,
+cr.question_id,
+cr.choice_id
+FROM response r
+INNER JOIN choice_response cr on r.id = cr.response_id
+INNER JOIN question q on q.id = cr.question_id
+INNER JOIN choice c on c.id = cr.choice_id
+WHERE
+r.poll_id = 5
+group by question_id, choice_id
+;

@@ -193,7 +193,7 @@
         
         <script type="text/javascript">
             $( document ).ready(function() {
-                $('#expirationDate').datetimepicker({format: 'Y-m-d H:i'});
+                $('#expirationDatetime').datetimepicker({format: 'Y-m-d H:i'});
                 
                 $("#questionsDiv .questionDiv").each(function(index, value){
                     addClickListeners(value);
