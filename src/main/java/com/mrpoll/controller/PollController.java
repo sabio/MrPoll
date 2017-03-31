@@ -136,14 +136,6 @@ public class PollController {
     }
     
     
-    @RequestMapping(value = {"/results/{id}"}, method = RequestMethod.GET)
-    public String results(@PathVariable("id") Integer id, Model model) {
-        Poll poll = pollService.findById(id);
-        model.addAttribute("poll", poll);
-        return viewsdir + "pollForm";
-    }
-
-
     private void populateExtraInfo(Poll poll) {
         //Find logged user and set it in poll
         if(poll.getId() == null){

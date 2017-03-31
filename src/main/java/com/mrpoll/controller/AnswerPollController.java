@@ -35,9 +35,6 @@ public class AnswerPollController {
     private AnswerPollService answerPollService;
     
     @Autowired
-    private MessageSource messageSource;
-    
-    @Autowired
     private AnswerPollFormValidator answerPollFormValidator;
     
     private final String viewsdir = "answerPoll" + java.io.File.separator;
@@ -82,6 +79,16 @@ public class AnswerPollController {
         
         return viewsdir + "pollAnswered";
     }
+    
+    
+    @RequestMapping(value = {"/results/{uuid}"}, method = RequestMethod.GET)
+    public String results(@PathVariable("id")  String uuid, Model model) {
+        Poll poll = pollService.findByUUID(uuid);
+        model.addAttribute("poll", poll);
+        model.addAttribute("questionResults", answerPollService.getResults(poll.getId()));
+        return viewsdir + "results";
+    }
+    
 
     private void populateExtraInfo(FormResponse formResponse) {
         formResponse.setResponseDate(new Date());
