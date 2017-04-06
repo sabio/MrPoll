@@ -13,6 +13,7 @@
         <link href="<c:url value='/static/css/login.css' />" rel="stylesheet"></link>
         <link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.2.0/css/font-awesome.css" />
         <link href="https://fonts.googleapis.com/css?family=Anton" rel="stylesheet">
+        <script type="text/javascript" src="<c:url value='/static/js/jquery.js' />" ></script>
         <sitemesh:write property='head'/>
     </head>
     <body>

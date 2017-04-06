@@ -8,13 +8,14 @@
     </head>
     <body>
         <div id="mainWrapper">
+            
             <div class="login-container">
                 <div class="title">
                     <spring:message code="title" />
                 </div>
                 <div class="login-form">
                     <c:url var="loginUrl" value="/login" />
-                    <form action="${loginUrl}" method="post" class="form-horizontal">
+                    <form id="loginForm" action="${loginUrl}" method="post" class="form-horizontal">
                         <c:if test="${param.error != null}">
                             <div class="alert alert-danger">
                                 <p><spring:message code="login.invalidusernamepassword" /></p>
@@ -48,5 +49,15 @@
                 </div>
             </div>
         </div>
+        <script type="text/javascript">
+            $( document ).ready(function() {
+                $('body').keydown(function(e) {
+                    if (e.keyCode === 13) {
+                        e.preventDefault();
+                        $("#loginForm").submit();
+                    }
+                });
+            });
+        </script>
     </body>
 </html>

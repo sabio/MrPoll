@@ -4,7 +4,8 @@ package com.mrpoll.controller;
 public class ChoiceResult {
     private Integer id;
     private String choiceText;
-    private Integer count;
+    private Long count;
+    private Double percent;
 
     public Integer getId() {
         return id;
@@ -22,12 +23,20 @@ public class ChoiceResult {
         this.choiceText = choiceText;
     }
 
-    public Integer getCount() {
+    public Long getCount() {
         return count;
     }
 
-    public void setCount(Integer count) {
+    public void setCount(Long count) {
         this.count = count;
+    }
+
+    public Double getPercent() {
+        return percent;
+    }
+
+    public void setPercent(Double percent) {
+        this.percent = percent;
     }
     
     

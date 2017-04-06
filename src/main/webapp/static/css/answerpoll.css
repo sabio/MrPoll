@@ -57,7 +57,6 @@ input[type=radio] {
 }
 
 .questionDiv .choiceDiv label{
-    cursor: pointer;
     width: 100%;
 }
 
@@ -66,4 +65,9 @@ input[type=radio] {
     font-weight: bolder;
 }
 
-
+.bar{
+    background-color: blue;
+    color: white;
+    height:20px;
+        
+}

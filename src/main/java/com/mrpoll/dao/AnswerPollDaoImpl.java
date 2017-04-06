@@ -6,8 +6,6 @@ import com.mrpoll.controller.FormResponse;
 import com.mrpoll.controller.QuestionResult;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,7 +13,6 @@ import java.util.Map;
 import javax.sql.DataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.stereotype.Repository;
 
@@ -53,39 +50,65 @@ public class AnswerPollDaoImpl implements AnswerPollDao{
     
     @Override
     public List<QuestionResult> getResults(Integer idPoll) {
-        String query =  
-                "SELECT " +
-                "   cr.question_id, q.question_text, cr.choice_id, c.choice_text, count(*) count " +
-                "FROM " +
-                "   response r " +
-                "INNER JOIN choice_response cr on r.id = cr.response_id " +
-                "INNER JOIN question q on q.id = cr.question_id " +
-                "INNER JOIN choice c on c.id = cr.choice_id " +
-                "WHERE " +
-                "   r.poll_id = ? " +
-                "GROUP BY " +
-                "   cr.question_id, q.question_text, cr.choice_id, c.choice_text";
+        StringBuilder query = new StringBuilder()  
+                .append("SELECT ")
+                .append("   c.question_id, q.question_text, c.id choice_id, c.choice_text,")
+                .append("   ( ")
+                .append("	SELECT COUNT(*) ")
+                .append("       FROM choice_response ")
+                .append("       WHERE ")
+                .append("		question_id = c.question_id ")
+                .append("        and choice_id = c.id ")
+                .append("   ) count ")
+                .append("FROM ")
+                .append("   choice c ")
+                .append("INNER JOIN ")
+                .append("   question q on q.id = c.question_id ")
+                .append("INNER JOIN ")
+                .append("   poll p on p.id = q.poll_id ")
+                .append("WHERE ")
+                .append("   p.id = ? ")
+                .append("GROUP BY ")
+                .append("   c.question_id, q.question_text, c.id, c.choice_text ")
+                .append("order by ")
+                .append("   c.id ");
         
-        List<QuestionResult> questionResult = new ArrayList<>();
+        List<QuestionResult> questionResultList = new ArrayList<>();
         JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
-        List<Map<String, Object>> dbResults = jdbcTemplate.queryForList(query, new Object[]{idPoll});
+        List<Map<String, Object>> dbResults = jdbcTemplate.queryForList(query.toString(), new Object[]{idPoll});
         
         dbResults.forEach(row -> {
-            if(questionResult.isEmpty() || !questionResult.get(questionResult.size()-1).equals(row.get("question_id"))  ){
-                QuestionResult qr = new QuestionResult();
+            QuestionResult qr;
+            if(questionResultList.isEmpty() || !questionResultList.get(questionResultList.size()-1).getId().equals(row.get("question_id"))  ){
+                qr = new QuestionResult();
                 qr.setId((Integer)row.get("question_id"));
-                qr.setQuestionText(query);
+                qr.setQuestionText((String)row.get("question_text"));
+                questionResultList.add(qr);
+            }
+            else{
+                qr = questionResultList.get(questionResultList.size()-1);
             }
             
             ChoiceResult cr = new ChoiceResult();
             cr.setId((Integer)row.get("choice_id"));
             cr.setChoiceText((String)row.get("choice_text"));
-            cr.setCount((Integer)row.get("count"));
+            cr.setCount((Long)row.get("count"));
             
-            questionResult.get(questionResult.size()-1).addChoiceResult(cr);
+            qr.addChoiceResult(cr);
         });
         
-        return questionResult;
+        
+        //Calculate percentage
+        questionResultList.forEach(qr -> {
+            Long total = qr.getChoiceResults().stream().mapToLong(ChoiceResult::getCount).sum();
+            
+            qr.getChoiceResults().forEach(cr -> {
+                cr.setPercent(total == 0 ? 0d : (100.0 * (new Double(cr.getCount()) / new Double(total))));
+            });
+
+        });
+        
+        return questionResultList;
     }
     
     

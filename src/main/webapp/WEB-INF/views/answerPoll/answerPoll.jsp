@@ -32,7 +32,7 @@
                                         <form:errors path="formChoiceResponses[${i}].idQuestion" class="control-label" />
                                     </div>
                                     <c:forEach var="j" begin="0" end="${fn:length(poll.questions[i].choices) - 1}" >
-                                        <div class="choiceDiv control-label" style="text-align: left"s>
+                                        <div class="choiceDiv control-label" style="text-align: left">
                                             <form:radiobutton path="formChoiceResponses[${i}].idChoice" value="${poll.questions[i].choices[j].id}"  /> ${poll.questions[i].choices[j].choiceText} 
                                         </div>
                                     </c:forEach>

@@ -53,7 +53,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .tokenValiditySeconds(86400).and().csrf()
                 
                 .and()
-                .exceptionHandling().accessDeniedPage("/Access_Denied");
+                .exceptionHandling().accessDeniedPage("/access_denied");
     }
 
     @Bean

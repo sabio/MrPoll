@@ -33,6 +33,7 @@
 
             <form:form id="form" class="form-horizontal" method="post" modelAttribute="poll" action="${actionUrl}">
                 <form:hidden path="id" />
+                <form:hidden path="uuid" />
                 
                 <spring:bind path="poll">
                     <c:if test="${status.error}">

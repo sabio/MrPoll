@@ -82,7 +82,7 @@ public class AnswerPollController {
     
     
     @RequestMapping(value = {"/results/{uuid}"}, method = RequestMethod.GET)
-    public String results(@PathVariable("id")  String uuid, Model model) {
+    public String results(@PathVariable("uuid")  String uuid, Model model) {
         Poll poll = pollService.findByUUID(uuid);
         model.addAttribute("poll", poll);
         model.addAttribute("questionResults", answerPollService.getResults(poll.getId()));
