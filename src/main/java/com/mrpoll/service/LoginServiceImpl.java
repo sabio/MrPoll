@@ -17,18 +17,32 @@ public class LoginServiceImpl implements LoginService{
     private PersistentTokenBasedRememberMeServices persistentTokenBasedRememberMeServices;
     private AuthenticationTrustResolver authenticationTrustResolver;
     
-    
+    /**
+     * LoginServiceImpl Constructor
+     * @param persistentTokenBasedRememberMeServices
+     * @param authenticationTrustResolver 
+     */
     @Autowired
+    public LoginServiceImpl(PersistentTokenBasedRememberMeServices persistentTokenBasedRememberMeServices, AuthenticationTrustResolver authenticationTrustResolver) {
+        this.persistentTokenBasedRememberMeServices = persistentTokenBasedRememberMeServices;
+        this.authenticationTrustResolver = authenticationTrustResolver;
+    }
+    
+    /**
+     * PersistentTokenBasedRememberMeServices setter
+     * @param persistentTokenBasedRememberMeServices 
+     */
     public void setPersistentTokenBasedRememberMeServices(PersistentTokenBasedRememberMeServices persistentTokenBasedRememberMeServices) {
         this.persistentTokenBasedRememberMeServices = persistentTokenBasedRememberMeServices;
     }
     
-    @Autowired
+    /**
+     * AuthenticationTrustResolver setter
+     * @param authenticationTrustResolver 
+     */
     public void setAuthenticationTrustResolver(AuthenticationTrustResolver authenticationTrustResolver) {
         this.authenticationTrustResolver = authenticationTrustResolver;
     }
-    
-    
     
     
     /**
@@ -42,6 +56,7 @@ public class LoginServiceImpl implements LoginService{
     
     /**
      * This method returns the username of logged-in user.
+     * @return The username of the logged-in user.
      */
     @Override
     public String getPrincipalUsername(){
@@ -57,7 +72,9 @@ public class LoginServiceImpl implements LoginService{
     }
     
     /**
-     * This method, as its name says, logouts the user
+     * This method, as its name says, logouts the user.
+     * @param request
+     * @param response
      */
     @Override
     public void logout(HttpServletRequest request, HttpServletResponse response) {
@@ -68,6 +85,4 @@ public class LoginServiceImpl implements LoginService{
             SecurityContextHolder.getContext().setAuthentication(null);
         }
     }
-    
-    
 }
