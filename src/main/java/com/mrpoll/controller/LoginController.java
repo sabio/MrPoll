@@ -8,13 +8,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @Controller
 public class LoginController {
-
+    
+    static final Logger logger = LoggerFactory.getLogger(LoginController.class);
     private final String viewsdir = "login/";
-    
-    
     private LoginService loginService;
 
     @Autowired
@@ -29,8 +30,10 @@ public class LoginController {
     @RequestMapping(value = {"/login"}, method = RequestMethod.GET)
     public String loginPage() {
         if (loginService.isCurrentAuthenticationAnonymous()) {
+            logger.info("User is not logged in");
             return viewsdir + "login";
         } else {
+            logger.info("User is logged in. Redirecting to / ");
             return "redirect:/";
         }
     }

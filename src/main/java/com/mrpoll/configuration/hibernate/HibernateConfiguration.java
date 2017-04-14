@@ -1,4 +1,4 @@
-package com.mrpoll.configuration;
+package com.mrpoll.configuration.hibernate;
 
 import java.util.Properties;
 

@@ -29,11 +29,21 @@ import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
 
 @Configuration
 @EnableWebMvc
-@ComponentScan(basePackages = "com.mrpoll")
+@ComponentScan(
+                basePackages = {
+                                "com.mrpoll.controller",
+                                "com.mrpoll.service",
+                                "com.mrpoll.dao",
+                                "com.mrpoll.converter",
+                                "com.mrpoll.configuration.hibernate",
+                                "com.mrpoll.security",
+                                "com.mrpoll.validator"
+                               }
+              )
 public class AppConfig extends WebMvcConfigurerAdapter {
 
     /**
-     * Configure ViewResolvers to deliver preferred views.
+     * Configure ViewResolvers.
      */
     @Override
     public void configureViewResolvers(ViewResolverRegistry registry) {
@@ -46,8 +56,7 @@ public class AppConfig extends WebMvcConfigurerAdapter {
     }
 
     /**
-     * Configure ResourceHandlers to serve static resources like CSS/ Javascript
-     * etc...
+     * Configure ResourceHandlers to serve static resources.
      */
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
@@ -56,7 +65,7 @@ public class AppConfig extends WebMvcConfigurerAdapter {
 
     /**
      * Configure MessageSource to lookup any validation/error message in
-     * internationalized property files
+     * internationalized property files.
      */
     @Bean
     public MessageSource messageSource() {

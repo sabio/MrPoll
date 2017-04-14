@@ -15,7 +15,7 @@
                 <h3><spring:message code="welcomemessage" /></h3>
                 <br />
                 <div style="max-width: 500px; margin: auto">
-                    Use the above menu to create/update/delete your polls. If you are an ADMIN user, you can also create/update/delete user accounts but be careful because you might delete your own account :)
+                    <spring:message code="indexInstructions" />
                 </div>
             </div>
 

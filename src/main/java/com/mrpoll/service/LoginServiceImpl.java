@@ -9,10 +9,14 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.rememberme.PersistentTokenBasedRememberMeServices;
 import org.springframework.stereotype.Service;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 
 @Service("loginService")
 public class LoginServiceImpl implements LoginService{
+    
+    static final Logger logger = LoggerFactory.getLogger(LoginServiceImpl.class);
     
     private PersistentTokenBasedRememberMeServices persistentTokenBasedRememberMeServices;
     private AuthenticationTrustResolver authenticationTrustResolver;
@@ -60,7 +64,7 @@ public class LoginServiceImpl implements LoginService{
      */
     @Override
     public String getPrincipalUsername(){
-        String userName = null;
+        String userName;
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
         if (principal instanceof UserDetails) {
@@ -80,7 +84,7 @@ public class LoginServiceImpl implements LoginService{
     public void logout(HttpServletRequest request, HttpServletResponse response) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         if (auth != null){    
-            //new SecurityContextLogoutHandler().logout(request, response, auth);
+            logger.info("User {} logged out", getPrincipalUsername());
             persistentTokenBasedRememberMeServices.logout(request, response, auth);
             SecurityContextHolder.getContext().setAuthentication(null);
         }
