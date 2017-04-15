@@ -1,9 +1,7 @@
-package com.mrpoll.security;
+package com.mrpoll.service;
 
-import com.mrpoll.model.Role;
 import java.util.ArrayList;
 import java.util.List;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,11 +11,9 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 
 import com.mrpoll.model.User;
-import com.mrpoll.service.UserService;
 
 @Service("customUserDetailsService")
 public class CustomUserDetailsService implements UserDetailsService {
@@ -27,6 +23,7 @@ public class CustomUserDetailsService implements UserDetailsService {
     @Autowired
     private UserService userService;
 
+    @Override
     public UserDetails loadUserByUsername(String username)
             throws UsernameNotFoundException {
         User user = userService.findByUsername(username);
@@ -42,9 +39,9 @@ public class CustomUserDetailsService implements UserDetailsService {
     private List<GrantedAuthority> getGrantedAuthorities(User user) {
         List<GrantedAuthority> authorities = new ArrayList<>();
         
-        for(Role r : user.getRoles()){
+        user.getRoles().forEach((r) -> {
             authorities.add(new SimpleGrantedAuthority(r.getRole()));
-        }
+        });
         
         return authorities;
     }

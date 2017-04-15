@@ -16,12 +16,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.springframework.web.servlet.view.JstlView;
 import java.util.Locale;
-import java.util.Properties;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
-import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
-import org.springframework.instrument.classloading.InstrumentationLoadTimeWeaver;
-import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
-import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.i18n.CookieLocaleResolver;
@@ -36,7 +31,7 @@ import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
                                 "com.mrpoll.dao",
                                 "com.mrpoll.converter",
                                 "com.mrpoll.configuration.hibernate",
-                                "com.mrpoll.security",
+                                "com.mrpoll.configuration.security",
                                 "com.mrpoll.validator"
                                }
               )

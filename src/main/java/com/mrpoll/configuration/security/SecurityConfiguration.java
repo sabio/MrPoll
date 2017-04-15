@@ -1,4 +1,4 @@
-package com.mrpoll.security;
+package com.mrpoll.configuration.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
