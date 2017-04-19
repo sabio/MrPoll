@@ -37,6 +37,8 @@
                     <li><a href="<c:url value='/userList' />"><spring:message code="users" /></a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
+                    <li><a href="<c:url value='/?mylocale=es' />"><img src="<c:url value='/static/images/mexico-flag-icon-32.png' />" /> </a></li>
+                    <li><a href="<c:url value='/?mylocale=en' />"><img src="<c:url value='/static/images/united-states-of-america-flag-icon-32.png' />" /> </a></li>
                     <li><a href="<c:url value='/logout' />"><spring:message code="logout" /></a></li>
                 </ul>
             </div>

@@ -15,7 +15,7 @@
                 <h3><spring:message code="welcomemessage" /></h3>
                 <br />
                 <div style="max-width: 500px; margin: auto">
-                    <spring:message code="indexInstructions" />
+                    <spring:message code="indexPageInstructions" />
                 </div>
             </div>
 
