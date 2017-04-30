@@ -55,7 +55,7 @@ public class UserServiceImpl implements UserService {
     
     @Override
     public FormUser findFormUserById(Integer id) {
-        return createFormuUser(userDao.findById(id));
+        return createFormUser(userDao.findById(id));
     }
 
     @Override
@@ -81,7 +81,9 @@ public class UserServiceImpl implements UserService {
         return model;
     }
     
-    private FormUser createFormuUser(User user){
+    private FormUser createFormUser(User user){
+        if(user == null) return null;
+        
         FormUser formUser = new FormUser();
         formUser.setId(user.getId());
         formUser.setEmail(user.getEmail());

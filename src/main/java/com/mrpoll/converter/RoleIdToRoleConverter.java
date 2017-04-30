@@ -15,8 +15,9 @@ public class RoleIdToRoleConverter implements Converter<String, Role> {
     @Override
     public Role convert(String id) {
         try {
-            return roleService.findRoleById(Integer.valueOf(id));
-        } catch (NumberFormatException e) {
+            return roleService.findById(Integer.valueOf(id));
+        } catch (Exception e) {
+            e.printStackTrace();
             return null;
         }
     }

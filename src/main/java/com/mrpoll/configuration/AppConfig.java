@@ -13,6 +13,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.springframework.web.servlet.view.JstlView;
 import java.util.Locale;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
@@ -34,6 +35,10 @@ import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
         }
 )
 public class AppConfig extends WebMvcConfigurerAdapter {
+    
+    @Autowired
+    RoleIdToRoleConverter roleIdToRoleConverter;
+    
     
     /**
      * Configure ViewResolvers.
@@ -96,7 +101,7 @@ public class AppConfig extends WebMvcConfigurerAdapter {
      */
     @Override
     public void addFormatters (FormatterRegistry registry) {
-        registry.addConverter(new RoleIdToRoleConverter());
+        registry.addConverter(roleIdToRoleConverter);
     }
     
     

@@ -33,8 +33,8 @@
             <div id="navbar" class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li><a href="<c:url value='/' />"><spring:message code="home" /></a></li>
-                    <li><a href="<c:url value='/pollList' />"><spring:message code="polls" /></a></li>
                     <li><a href="<c:url value='/userList' />"><spring:message code="users" /></a></li>
+                    <li><a href="<c:url value='/pollList' />"><spring:message code="polls" /></a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     <li><a href="<c:url value='/?mylocale=es' />"><img src="<c:url value='/static/images/mexico-flag-icon-32.png' />" /> </a></li>

@@ -16,7 +16,7 @@ public class RoleServiceImpl implements RoleService{
     
     
     @Override
-    public Role findRoleById(Integer roleId) {
+    public Role findById(Integer roleId) {
         return roleDao.findById(roleId);
     }
     

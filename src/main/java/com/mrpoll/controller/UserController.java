@@ -1,6 +1,8 @@
 package com.mrpoll.controller;
 
+import com.mrpoll.exception.ResourceNotFoundException;
 import com.mrpoll.model.Role;
+import com.mrpoll.model.User;
 import com.mrpoll.service.RoleService;
 import com.mrpoll.service.UserService;
 import com.mrpoll.utils.Constants;
@@ -18,6 +20,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -94,7 +97,11 @@ public class UserController {
     
     @RequestMapping(value = {"/editUser/{id}"}, method = RequestMethod.GET)
     public String editUser(@PathVariable("id") Integer id, Model model) {
-        model.addAttribute("formUser", userService.findFormUserById(id));
+        FormUser formUser = userService.findFormUserById(id);
+        
+        if(formUser == null) throw new ResourceNotFoundException(); 
+        
+        model.addAttribute("formUser", formUser);
         return viewsdir + "userForm";
     }
     
@@ -116,5 +123,11 @@ public class UserController {
         redirectAttributes.addFlashAttribute("css", "success");
         redirectAttributes.addFlashAttribute("msg", messageSource.getMessage("user.deleted", null, locale));
         return "redirect:/userList";
+    }
+    
+    
+    @ExceptionHandler(ResourceNotFoundException.class)
+    public String handleResourceNotFoundException() {
+        return viewsdir + "userNotFound";
     }
 }
