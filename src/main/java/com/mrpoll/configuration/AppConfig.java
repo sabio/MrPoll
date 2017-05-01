@@ -31,6 +31,7 @@ import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
             "com.mrpoll.converter",
             "com.mrpoll.configuration.hibernate",
             "com.mrpoll.configuration.security",
+            "com.mrpoll.configuration.exception",
             "com.mrpoll.validator"
         }
 )
