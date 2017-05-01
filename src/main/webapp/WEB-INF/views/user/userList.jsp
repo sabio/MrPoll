@@ -14,7 +14,8 @@
             <c:url var="prevUrl" value="/userList?pageNumber=${currentIndex - 1}&pageSize=${pageSize}" />
             <c:url var="nextUrl" value="/userList?pageNumber=${currentIndex + 1}&pageSize=${pageSize}" />
 
-
+            <h2><spring:message code="user.userlist" /></h2>
+            
             <c:if test="${not empty msg}">
                 <div class="alert alert-${css} alert-dismissible" role="alert">
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">

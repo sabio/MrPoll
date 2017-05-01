@@ -14,6 +14,8 @@
             <c:url var="prevUrl" value="/pollList?pageNumber=${currentIndex - 1}&pageSize=${pageSize}" />
             <c:url var="nextUrl" value="/pollList?pageNumber=${currentIndex + 1}&pageSize=${pageSize}" />
             
+            <h2><spring:message code="poll.polllist" /></h2>
+            
             <c:if test="${not empty msg}">
                 <div class="alert alert-${css} alert-dismissible" role="alert">
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">

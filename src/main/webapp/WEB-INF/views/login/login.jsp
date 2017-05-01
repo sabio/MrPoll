@@ -15,6 +15,7 @@
                 </div>
                 <div class="login-form">
                     <c:url var="loginUrl" value="/login" />
+                    <c:url var="availablePolls" value="/availablePolls" />
                     <form id="loginForm" action="${loginUrl}" method="post" class="form-horizontal">
                         <c:if test="${param.error != null}">
                             <div class="alert alert-danger">
@@ -42,11 +43,15 @@
                         <input type="hidden" name="${_csrf.parameterName}"  value="${_csrf.token}" />
 
                         <div class="form-actions">
-                            <input type="submit"
-                                   class="btn btn-block btn-primary btn-default" value="Log in">
+                            <button type="submit" class="btn btn-block btn-primary btn-default"><spring:message code="login" /></button>
                         </div>
                     </form>
                 </div>
+                <br />
+                <div class="text-center">
+                    <a href="${availablePolls}"><spring:message code="answerpoll.availablepolls" /></a>
+                </div>
+
             </div>
         </div>
         <script type="text/javascript">
