@@ -1,4 +1,4 @@
-package com.mrpoll.controller;
+package com.mrpoll.model;
 
 import java.util.Date;
 import java.util.List;

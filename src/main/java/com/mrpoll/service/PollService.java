@@ -1,6 +1,6 @@
 package com.mrpoll.service;
 
-import com.mrpoll.controller.FormResponse;
+import com.mrpoll.model.FormResponse;
 import com.mrpoll.model.Poll;
 import com.mrpoll.model.User;
 import java.util.List;

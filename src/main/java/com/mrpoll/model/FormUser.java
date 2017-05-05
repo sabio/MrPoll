@@ -1,4 +1,4 @@
-package com.mrpoll.controller;
+package com.mrpoll.model;
 
 import com.mrpoll.model.Role;
 import com.mrpoll.validator.FieldMatch;

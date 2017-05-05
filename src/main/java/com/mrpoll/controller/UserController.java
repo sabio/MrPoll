@@ -1,6 +1,7 @@
 package com.mrpoll.controller;
 
 import com.mrpoll.exception.ResourceNotFoundException;
+import com.mrpoll.model.FormUser;
 import com.mrpoll.model.Role;
 import com.mrpoll.model.User;
 import com.mrpoll.service.RoleService;
