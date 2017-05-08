@@ -32,7 +32,8 @@ import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
             "com.mrpoll.configuration.hibernate",
             "com.mrpoll.configuration.security",
             "com.mrpoll.configuration.exception",
-            "com.mrpoll.validator"
+            "com.mrpoll.validator",
+            "com.mrpoll.restcontroller"
         }
 )
 public class AppConfig extends WebMvcConfigurerAdapter {
