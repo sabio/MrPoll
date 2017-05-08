@@ -1,8 +1,8 @@
 package com.mrpoll.dao;
 
-import com.mrpoll.controller.ChoiceResult;
-import com.mrpoll.controller.FormChoiceResponse;
-import com.mrpoll.controller.FormResponse;
+import com.mrpoll.model.ChoiceResult;
+import com.mrpoll.model.FormChoiceResponse;
+import com.mrpoll.model.FormResponse;
 import com.mrpoll.controller.QuestionResult;
 import java.sql.Connection;
 import java.sql.PreparedStatement;

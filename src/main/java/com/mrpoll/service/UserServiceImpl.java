@@ -5,7 +5,7 @@
  */
 package com.mrpoll.service;
 
-import com.mrpoll.controller.FormUser;
+import com.mrpoll.model.FormUser;
 import com.mrpoll.dao.UserRepository;
 import com.mrpoll.model.User;
 import org.hibernate.Hibernate;

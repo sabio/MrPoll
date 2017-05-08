@@ -1,6 +1,6 @@
 package com.mrpoll.dao;
 
-import com.mrpoll.controller.FormResponse;
+import com.mrpoll.model.FormResponse;
 import com.mrpoll.controller.QuestionResult;
 import java.util.List;
 

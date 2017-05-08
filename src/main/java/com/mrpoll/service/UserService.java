@@ -1,6 +1,6 @@
 package com.mrpoll.service;
 
-import com.mrpoll.controller.FormUser;
+import com.mrpoll.model.FormUser;
 import com.mrpoll.model.User;
 import org.springframework.data.domain.Page;
 

@@ -1,6 +1,6 @@
 package com.mrpoll.validator;
 
-import com.mrpoll.controller.FormUser;
+import com.mrpoll.model.FormUser;
 import java.lang.reflect.InvocationTargetException;
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;

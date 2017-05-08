@@ -1,7 +1,7 @@
 package com.mrpoll.validator;
 
-import com.mrpoll.controller.FormChoiceResponse;
-import com.mrpoll.controller.FormResponse;
+import com.mrpoll.model.FormChoiceResponse;
+import com.mrpoll.model.FormResponse;
 import java.util.List;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;

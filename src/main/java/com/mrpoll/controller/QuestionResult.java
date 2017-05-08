@@ -1,5 +1,6 @@
 package com.mrpoll.controller;
 
+import com.mrpoll.model.ChoiceResult;
 import java.util.ArrayList;
 import java.util.List;
 

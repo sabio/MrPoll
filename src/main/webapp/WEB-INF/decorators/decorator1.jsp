@@ -7,7 +7,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <link href="<c:url value='/static/css/bootstrap.css' />"  rel="stylesheet"></link>
         <title>Login page</title>
         <link href="<c:url value='/static/css/login.css' />" rel="stylesheet"></link>
