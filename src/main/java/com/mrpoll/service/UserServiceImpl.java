@@ -8,7 +8,6 @@ package com.mrpoll.service;
 import com.mrpoll.model.FormUser;
 import com.mrpoll.dao.UserRepository;
 import com.mrpoll.model.User;
-import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
