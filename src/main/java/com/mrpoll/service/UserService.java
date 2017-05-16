@@ -25,5 +25,4 @@ public interface UserService {
     void updateFormUser(FormUser formUser);
 
     void deleteUserById(Integer id);
-    
 }
