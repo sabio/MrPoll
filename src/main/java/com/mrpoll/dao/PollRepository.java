@@ -1,6 +1,6 @@
 package com.mrpoll.dao;
 
-import com.mrpoll.model.Poll;
+import com.mrpoll.entity.Poll;
 import java.util.Date;
 import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;

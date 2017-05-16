@@ -1,6 +1,6 @@
 package com.mrpoll.service;
 
-import com.mrpoll.model.Role;
+import com.mrpoll.entity.Role;
 import java.util.List;
 
 

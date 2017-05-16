@@ -1,4 +1,4 @@
-package com.mrpoll.model;
+package com.mrpoll.entity;
 
 import java.io.Serializable;
 import java.util.Date;

@@ -1,8 +1,8 @@
 package com.mrpoll.ejemplotestcontroller;
 
 import com.mrpoll.controller.UserController;
-import com.mrpoll.model.Role;
-import com.mrpoll.model.User;
+import com.mrpoll.entity.Role;
+import com.mrpoll.entity.User;
 import com.mrpoll.service.RoleService;
 import com.mrpoll.service.UserService;
 import java.util.ArrayList;

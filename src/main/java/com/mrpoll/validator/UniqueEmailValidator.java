@@ -1,7 +1,7 @@
 package com.mrpoll.validator;
 
 import com.mrpoll.model.FormUser;
-import com.mrpoll.model.User;
+import com.mrpoll.entity.User;
 import com.mrpoll.service.UserService;
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;

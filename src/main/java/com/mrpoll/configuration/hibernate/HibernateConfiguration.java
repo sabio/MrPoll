@@ -34,7 +34,7 @@ public class HibernateConfiguration {
     public LocalSessionFactoryBean sessionFactory() {
         LocalSessionFactoryBean sessionFactory = new LocalSessionFactoryBean();
         sessionFactory.setDataSource(dataSource());
-        sessionFactory.setPackagesToScan(new String[] { "com.mrpoll.model" });
+        sessionFactory.setPackagesToScan(new String[] { "com.mrpoll.entity" });
         sessionFactory.setHibernateProperties(hibernateProperties());
         return sessionFactory;
      }
@@ -77,7 +77,7 @@ public class HibernateConfiguration {
         vendorAdapter.setShowSql(Boolean.TRUE);
         factory.setDataSource(dataSource());
         factory.setJpaVendorAdapter(vendorAdapter);
-        factory.setPackagesToScan("com.mrpoll.model");
+        factory.setPackagesToScan("com.mrpoll.entity");
         Properties jpaProperties = new Properties();
         //jpaProperties.put("hibernate.hbm2ddl.auto", "validate");
         factory.setJpaProperties(jpaProperties);

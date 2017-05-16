@@ -1,8 +1,8 @@
 package com.mrpoll.service;
 
 import com.mrpoll.model.FormResponse;
-import com.mrpoll.model.Poll;
-import com.mrpoll.model.User;
+import com.mrpoll.entity.Poll;
+import com.mrpoll.entity.User;
 import java.util.List;
 import org.springframework.data.domain.Page;
 

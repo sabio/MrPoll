@@ -1,5 +1,6 @@
 package com.mrpoll.configuration.security;
 
+import com.mrpoll.utils.Constants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
@@ -73,7 +74,7 @@ public class SecurityConfiguration  {
             http
                 .antMatcher("/api/**")
                 .authorizeRequests()
-                .antMatchers("/api/**").hasRole("ADMIN")
+                .antMatchers("/api/**").access("hasRole('"+Constants.ROLE_ADMIN+"')")
                 .and().httpBasic()
                 .and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
         }
@@ -91,10 +92,10 @@ public class SecurityConfiguration  {
             http.authorizeRequests()
                 
                 .antMatchers("/","/list","/pollList","/editPoll/*","/addPoll")
-                .access("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
+                .access("hasRole('"+Constants.ROLE_ADMIN+"') or hasRole('"+Constants.ROLE_USER+"')")
                 
                 .antMatchers("/userList","/editUser/*","/addUser")
-                .access("hasRole('ROLE_ADMIN')")
+                .access("hasRole('"+Constants.ROLE_ADMIN+"')")
 
                 .and()
                 .formLogin().loginPage("/login")

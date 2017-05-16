@@ -1,9 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package com.mrpoll.model;
+package com.mrpoll.entity;
 
 import java.io.Serializable;
 import java.util.List;
@@ -18,6 +13,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 
 @Entity
@@ -30,18 +26,24 @@ public class User implements Serializable {
     @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
+    
     @Basic(optional = false)
     @Column(name = "name")
     private String name;
+    
     @Basic(optional = false)
     @Column(name = "username")
     private String username;
+    
     @Basic(optional = false)
     @Column(name = "password")
+    @JsonIgnore
     private String password;
+    
     @Basic(optional = false)
     @Column(name = "email")
     private String email;
+    
     @Basic(optional = false)
     @Column(name = "enabled")
     private boolean enabled;
@@ -95,7 +97,8 @@ public class User implements Serializable {
     public void setUsername(String username) {
         this.username = username;
     }
-
+    
+    
     public String getPassword() {
         return password;
     }

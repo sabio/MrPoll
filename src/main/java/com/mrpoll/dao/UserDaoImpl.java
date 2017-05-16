@@ -1,11 +1,9 @@
 package com.mrpoll.dao;
 
-import com.mrpoll.model.Role;
-import com.mrpoll.model.User;
+import com.mrpoll.entity.User;
 import java.util.List;
 import org.hibernate.Criteria;
 import org.hibernate.Hibernate;
-import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 
@@ -58,5 +56,4 @@ public class UserDaoImpl extends AbstractDao<Integer, User> implements UserDao {
 
         return result;
     }
-
 }

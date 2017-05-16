@@ -2,8 +2,8 @@ package com.mrpoll.service;
 
 import com.mrpoll.dao.PollDao;
 import com.mrpoll.dao.PollRepository;
-import com.mrpoll.model.Poll;
-import com.mrpoll.model.User;
+import com.mrpoll.entity.Poll;
+import com.mrpoll.entity.User;
 import java.util.Date;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;

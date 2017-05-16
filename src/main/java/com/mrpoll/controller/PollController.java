@@ -1,9 +1,9 @@
 package com.mrpoll.controller;
 
-import com.mrpoll.model.Choice;
-import com.mrpoll.model.Poll;
-import com.mrpoll.model.Question;
-import com.mrpoll.model.User;
+import com.mrpoll.entity.Choice;
+import com.mrpoll.entity.Poll;
+import com.mrpoll.entity.Question;
+import com.mrpoll.entity.User;
 import com.mrpoll.service.PollService;
 import com.mrpoll.service.UserService;
 import com.mrpoll.utils.Constants;

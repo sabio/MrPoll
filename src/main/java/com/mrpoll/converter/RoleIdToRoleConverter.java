@@ -1,6 +1,6 @@
 package com.mrpoll.converter;
 
-import com.mrpoll.model.Role;
+import com.mrpoll.entity.Role;
 import com.mrpoll.service.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.converter.Converter;

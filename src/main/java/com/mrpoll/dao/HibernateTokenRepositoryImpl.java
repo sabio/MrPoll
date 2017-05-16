@@ -9,7 +9,7 @@ import org.springframework.security.web.authentication.rememberme.PersistentReme
 import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
-import com.mrpoll.model.PersistentLogin;
+import com.mrpoll.entity.PersistentLogin;
 
 @Repository("tokenRepositoryDao")
 @Transactional

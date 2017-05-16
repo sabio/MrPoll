@@ -7,11 +7,12 @@ package com.mrpoll.service;
 
 import com.mrpoll.model.FormUser;
 import com.mrpoll.dao.UserRepository;
-import com.mrpoll.model.User;
+import com.mrpoll.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import com.mrpoll.dao.UserDao;
+import java.util.List;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -55,6 +56,11 @@ public class UserServiceImpl implements UserService {
     @Override
     public FormUser findFormUserById(Integer id) {
         return createFormUser(userDao.findById(id));
+    }
+    
+    @Override
+    public List<User> findAll() {
+        return userDao.findAll();
     }
 
     @Override
@@ -112,5 +118,5 @@ public class UserServiceImpl implements UserService {
     public void deleteUserById(Integer id) {
         userDao.deleteUserById(id);
     }
-
+    
 }

@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.mrpoll.model;
+package com.mrpoll.entity;
 
+import com.mrpoll.entity.Choice;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;

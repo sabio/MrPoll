@@ -1,7 +1,7 @@
 package com.mrpoll.service;
 
 import com.mrpoll.dao.RoleDao;
-import com.mrpoll.model.Role;
+import com.mrpoll.entity.Role;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

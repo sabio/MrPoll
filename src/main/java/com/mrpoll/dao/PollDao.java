@@ -1,7 +1,7 @@
 package com.mrpoll.dao;
 
-import com.mrpoll.model.Poll;
-import com.mrpoll.model.User;
+import com.mrpoll.entity.Poll;
+import com.mrpoll.entity.User;
 
 public interface PollDao {
     Poll findById(Integer id);

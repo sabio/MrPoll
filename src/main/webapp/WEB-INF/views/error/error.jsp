@@ -5,7 +5,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title><spring:message code="user.userlist" /></title>
+        <title><spring:message code="error" /></title>
     </head>
     <body>
         <div id="mainContainer" style="overflow: scroll; height: 90%">

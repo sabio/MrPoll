@@ -1,7 +1,7 @@
 package com.mrpoll.controller;
 
 import com.mrpoll.model.FormResponse;
-import com.mrpoll.model.Poll;
+import com.mrpoll.entity.Poll;
 import com.mrpoll.service.AnswerPollService;
 import com.mrpoll.service.PollService;
 import com.mrpoll.validator.AnswerPollFormValidator;

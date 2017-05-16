@@ -1,8 +1,8 @@
 package com.mrpoll.validator;
 
-import com.mrpoll.model.Choice;
-import com.mrpoll.model.Poll;
-import com.mrpoll.model.Question;
+import com.mrpoll.entity.Choice;
+import com.mrpoll.entity.Poll;
+import com.mrpoll.entity.Question;
 import java.util.Date;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;

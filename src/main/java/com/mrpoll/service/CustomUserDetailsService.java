@@ -13,7 +13,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 
-import com.mrpoll.model.User;
+import com.mrpoll.entity.User;
 
 @Service("customUserDetailsService")
 public class CustomUserDetailsService implements UserDetailsService {

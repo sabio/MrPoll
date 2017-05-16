@@ -1,7 +1,7 @@
 package com.mrpoll.dao;
 
-import com.mrpoll.model.Role;
-import com.mrpoll.model.User;
+import com.mrpoll.entity.Role;
+import com.mrpoll.entity.User;
 import java.util.List;
 
 
@@ -9,6 +9,8 @@ public interface UserDao {
     User findById(Integer id);
     
     User findByUsername(String username);
+    
+    List<User> findAll();
 
     public void save(User user);
     

@@ -2,17 +2,12 @@ package com.mrpoll.controller;
 
 import com.mrpoll.exception.ResourceNotFoundException;
 import com.mrpoll.model.FormUser;
-import com.mrpoll.model.Role;
-import com.mrpoll.model.User;
+import com.mrpoll.entity.Role;
 import com.mrpoll.service.RoleService;
 import com.mrpoll.service.UserService;
 import com.mrpoll.utils.Constants;
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Locale;
-import java.util.Map;
-import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;

@@ -1,6 +1,6 @@
 package com.mrpoll.model;
 
-import com.mrpoll.model.Role;
+import com.mrpoll.entity.Role;
 import com.mrpoll.validator.FieldMatch;
 import com.mrpoll.validator.UniqueEmail;
 import java.util.List;

@@ -1,6 +1,9 @@
 package com.mrpoll.utils;
 
+import java.util.ArrayList;
+import java.util.List;
 import org.springframework.stereotype.Component;
+import org.springframework.validation.BindingResult;
 
 @Component
 public class CommonMethods {
@@ -18,5 +21,19 @@ public class CommonMethods {
         catch(NumberFormatException e){
             return defaultValue;
         }
+    }
+    
+    
+    public static List<String> retrieveErrorsFromBindingResult(BindingResult result){
+        List<String> errorMessages = new ArrayList<>();
+            
+        result.getFieldErrors().forEach((e) -> {
+            errorMessages.add(e.getField()+" - "+e.getDefaultMessage());
+        });
+        result.getGlobalErrors().forEach((e) -> {
+            errorMessages.add(e.getDefaultMessage());
+        });
+        
+        return errorMessages;
     }
 }

@@ -1,6 +1,6 @@
 package com.mrpoll.dao;
 
-import com.mrpoll.model.User;
+import com.mrpoll.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

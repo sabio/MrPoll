@@ -1,12 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <sitemesh>
-    <mapping path="/login" decorator="/WEB-INF/decorators/decorator1.jsp"/>
-    <mapping path="/answerPoll/*" decorator="/WEB-INF/decorators/decorator3.jsp"/>
-    <mapping path="/results/*" decorator="/WEB-INF/decorators/decorator3.jsp"/>
-    <mapping path="/availablePolls" decorator="/WEB-INF/decorators/decorator3.jsp"/>
-    <mapping path="/" decorator="/WEB-INF/decorators/decorator2.jsp"/>
+    <mapping path="/login" decorator="/WEB-INF/decorators/loginDecorator.jsp"/>
+    <mapping path="/answerPoll/*" decorator="/WEB-INF/decorators/pollDecorator.jsp"/>
+    <mapping path="/results/*" decorator="/WEB-INF/decorators/pollDecorator.jsp"/>
+    <mapping path="/availablePolls" decorator="/WEB-INF/decorators/pollDecorator.jsp"/>
+    <mapping path="/" decorator="/WEB-INF/decorators/siteDecorator.jsp"/>
     <mapping path="/api/*" exclude="true" />
-    <!--
-        <mapping path="/login" exclude="true"/>
-    -->
 </sitemesh>

@@ -1,6 +1,6 @@
 package com.mrpoll.dao;
 
-import com.mrpoll.model.Role;
+import com.mrpoll.entity.Role;
 import java.util.List;
 import org.hibernate.Criteria;
 import org.hibernate.criterion.Restrictions;
