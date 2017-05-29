@@ -4,6 +4,7 @@ import com.mrpoll.entity.Choice;
 import com.mrpoll.entity.Poll;
 import com.mrpoll.entity.Question;
 import com.mrpoll.entity.User;
+import com.mrpoll.exception.ResourceNotFoundException;
 import com.mrpoll.service.PollService;
 import com.mrpoll.service.UserService;
 import com.mrpoll.utils.Constants;
@@ -19,6 +20,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.context.MessageSource;
 import org.springframework.data.domain.Page;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
@@ -27,12 +29,14 @@ import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
@@ -109,6 +113,9 @@ public class PollController {
     @RequestMapping(value = {"/editPoll/{id}"}, method = RequestMethod.GET)
     public String editPoll(@PathVariable("id") Integer id, Model model) {
         Poll poll = pollService.findById(id);
+        
+        if(poll == null) throw new ResourceNotFoundException(); 
+        
         model.addAttribute("poll", poll);
         return viewsdir + "pollForm";
     }
@@ -148,5 +155,12 @@ public class PollController {
         else{
             poll.setUserId(pollService.getPollOwner(poll.getId()));
         }
+    }
+    
+    
+    @ResponseStatus(value = HttpStatus.NOT_FOUND)
+    @ExceptionHandler(ResourceNotFoundException.class)
+    public String handleResourceNotFoundException() {
+        return viewsdir + "pollNotFound";
     }
 }

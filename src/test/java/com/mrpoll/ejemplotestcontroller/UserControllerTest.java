@@ -3,6 +3,7 @@ package com.mrpoll.ejemplotestcontroller;
 import com.mrpoll.controller.UserController;
 import com.mrpoll.entity.Role;
 import com.mrpoll.entity.User;
+import com.mrpoll.model.FormUser;
 import com.mrpoll.service.RoleService;
 import com.mrpoll.service.UserService;
 import java.util.ArrayList;
@@ -73,22 +74,47 @@ public class UserControllerTest {
     
     @Test
     public void testUserList() throws Exception{
-//        int pageNumber = 2;
-//        int pageSize= 10;
-//        int sizeExpected = 10;
-//        
-//        when(userService.getUserListPage(pageNumber-1,pageSize)).thenReturn(page);
-//        when(roleService.getRoles()).thenReturn(roles);
-//        
-//        mockMvc.perform(get("/userList?pageNumber="+pageNumber+"&pageSize="+pageSize))
-//                .andExpect(status().isOk())
-//                .andExpect(view().name("user/userList"))
-//                .andExpect(model().attribute("list", hasSize(sizeExpected)));
-//        
-//        verify(userService, times(1)).getUserListPage(pageNumber-1,pageSize);
-//        verifyNoMoreInteractions(userService);
+        int pageNumber = 2;
+        int pageSize= 10;
+        int sizeExpected = 10;
+        
+        when(userService.getUserListPage(pageNumber-1,pageSize)).thenReturn(page);
+        when(roleService.getRoles()).thenReturn(roles);
+        
+        mockMvc.perform(get("/userList?pageNumber="+pageNumber+"&pageSize="+pageSize))
+                .andExpect(status().isOk())
+                .andExpect(view().name("user/userList"))
+                .andExpect(model().attribute("list", hasSize(sizeExpected)));
+        
+        verify(userService, times(1)).getUserListPage(pageNumber-1,pageSize);
+        verifyNoMoreInteractions(userService);
+    }
+    
+    @Test
+    public void testFindById() throws Exception{
+        FormUser formUser = new FormUser();
+        when(userService.findFormUserById(1)).thenReturn(formUser);
+        
+        mockMvc.perform(get("/editUser/1"))
+                .andExpect(status().isOk())
+                .andExpect(view().name("user/userForm"))
+                .andExpect(model().attribute("formUser", formUser));
+        
+        verify(userService, times(1)).findFormUserById(1);
+        verifyZeroInteractions(userService);
     }
     
     
+    @Test
+    public void testFindById_EntryNotFound() throws Exception{
+        when(userService.findFormUserById(1)).thenReturn(null);
+        
+        mockMvc.perform(get("/editUser/1"))
+                .andExpect(status().isNotFound())
+                .andExpect(view().name("user/userNotFound"));
+        
+        verify(userService, times(1)).findFormUserById(1);
+        verifyZeroInteractions(userService);
+    }
     
 }
