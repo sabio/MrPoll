@@ -40,11 +40,23 @@ public class UserController {
     private LocaleResolver localeResolver;
     */
     
-    @Autowired
+
     private UserService userService;
     
     @Autowired
+    public void setUserService(UserService userService){
+        this.userService = userService;
+    }
+    
+    
     private RoleService roleService;
+    
+    @Autowired
+    public void setRoleService(RoleService roleService){
+        this.roleService = roleService;
+    }
+    
+    
 
     @RequestMapping(value = {"/userList"}, method = RequestMethod.GET)
     public String pollList(
