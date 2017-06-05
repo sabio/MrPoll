@@ -38,7 +38,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public User findByUsername(String username) {
         User user = userDao.findByUsername(username);
-        User user2 = userRepository.findByUsername(username);
+        //User user = userRepository.findByUsername(username);
         /*
         if (user != null) {
             Hibernate.initialize(user.getRoles());

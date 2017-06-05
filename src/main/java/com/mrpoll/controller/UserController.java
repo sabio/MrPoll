@@ -32,9 +32,6 @@ public class UserController {
 
     private final String viewsdir = "user" + java.io.File.separator;
     
-    @Autowired
-    private MessageSource messageSource;
-    
     /*
     @Autowired
     private LocaleResolver localeResolver;
@@ -55,7 +52,14 @@ public class UserController {
     public void setRoleService(RoleService roleService){
         this.roleService = roleService;
     }
+
     
+    private MessageSource messageSource;
+    
+    @Autowired
+    public void setMessageSource(MessageSource messageSource) {
+        this.messageSource = messageSource;
+    }
     
 
     @RequestMapping(value = {"/userList"}, method = RequestMethod.GET)
