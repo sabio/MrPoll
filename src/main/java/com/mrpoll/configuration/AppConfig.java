@@ -13,8 +13,11 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.springframework.web.servlet.view.JstlView;
 import java.util.Locale;
+import org.sitemesh.config.ConfigurableSiteMeshFilter;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
+import org.springframework.web.filter.CharacterEncodingFilter;
 import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.i18n.CookieLocaleResolver;
@@ -106,5 +109,19 @@ public class AppConfig extends WebMvcConfigurerAdapter {
         registry.addConverter(roleIdToRoleConverter);
     }
     
+    
+    @Bean
+    public FilterRegistrationBean someFilterRegistration() {
+        CharacterEncodingFilter characterEncodingFilter = new CharacterEncodingFilter();
+        characterEncodingFilter.setEncoding("UTF-8");
+        //return new Filter[]{characterEncodingFilter, new ConfigurableSiteMeshFilter()};
+        
+        FilterRegistrationBean registration = new FilterRegistrationBean();
+        registration.setFilter(new ConfigurableSiteMeshFilter());
+        registration.addUrlPatterns("/*");
+        //registration.setName("sitemeshFilter");
+        //registration.setOrder(1);
+        return registration;
+    }
     
 }

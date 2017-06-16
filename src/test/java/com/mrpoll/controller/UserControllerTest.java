@@ -44,7 +44,7 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.ResultActions;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 
-
+/*
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = 
         {
@@ -52,8 +52,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
             com.mrpoll.configuration.AppConfigTest.class
         })
 @WebAppConfiguration
+*/
 public class UserControllerTest {
-    
+    /*
     private MockMvc mockMvc;
     
     @Autowired
@@ -174,5 +175,5 @@ public class UserControllerTest {
                 ;
     }
     
-    
+    */
 }

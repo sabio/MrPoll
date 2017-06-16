@@ -14,6 +14,8 @@ import org.sitemesh.config.ConfigurableSiteMeshFilter;
 import org.springframework.web.filter.CharacterEncodingFilter;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
+public class AppInitializer{}
+/*
 public class AppInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
     
     @Override
@@ -82,3 +84,4 @@ public class AppInitializer extends AbstractAnnotationConfigDispatcherServletIni
     }
     
 }
+*/
