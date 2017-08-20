@@ -1,6 +1,7 @@
 package com.mrpoll.configuration.hibernate;
 
 import java.util.Properties;
+import javax.persistence.EntityManagerFactory;
 
 import javax.sql.DataSource;
 
@@ -15,8 +16,8 @@ import org.springframework.core.env.Environment;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.instrument.classloading.InstrumentationLoadTimeWeaver;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
-import org.springframework.orm.hibernate4.HibernateTransactionManager;
-import org.springframework.orm.hibernate4.LocalSessionFactoryBean;
+import org.springframework.orm.hibernate5.HibernateTransactionManager;
+import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
@@ -24,15 +25,27 @@ import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @Configuration
-@EnableTransactionManagement
-@ComponentScan({"com.mrpoll.configuration"})
-@PropertySource(value = {"classpath:application.properties"})
+//@EnableTransactionManagement
+//@ComponentScan({"com.mrpoll.configuration"})
+//@PropertySource(value = {"classpath:application.properties"})
 @EnableJpaRepositories(basePackages = "com.mrpoll.dao")
 public class HibernateConfiguration {
 
     @Autowired
     private Environment environment;
-
+    
+    /*
+    @Autowired
+    private EntityManagerFactory entityManagerFactory;
+    @Bean
+    public SessionFactory getSessionFactory() {
+        if (entityManagerFactory.unwrap(SessionFactory.class) == null) {
+            throw new NullPointerException("factory is not a hibernate factory");
+        }
+        return entityManagerFactory.unwrap(SessionFactory.class);
+    }
+    */
+    
     @Bean
     public LocalSessionFactoryBean sessionFactory() {
         LocalSessionFactoryBean sessionFactory = new LocalSessionFactoryBean();
